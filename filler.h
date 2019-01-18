@@ -6,13 +6,14 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 21:42:08 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/18 14:18:21 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/18 19:38:30 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLER_H
-
 # define FILLER_H
+
+# include "libft.h"
 
 typedef struct	s_map
 {
@@ -34,5 +35,13 @@ typedef struct  s_piece
 	int			fd;
 	int			first;
 }               t_piece;
+
+int     possible_to_place(t_map *map, t_piece *piece, int y, int x);
+int     get_map(t_map *map);
+int     get_piece(t_piece *piece);
+int     place_top_left(t_map *map, t_piece *piece);
+int     place_top_rigth(t_map *map, t_piece *piece);
+int     place_down_left(t_map *map, t_piece *piece);
+int     place_down_rigth(t_map *map, t_piece *piece);
 
 #endif

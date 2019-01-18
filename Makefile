@@ -5,7 +5,10 @@ LDFLAG = -L./$(LIBDIR) -lft
 
 RM = rm -f
 
-SRC = main.c
+SRC = main.c \
+	  piece.c \
+	  map.c \
+	  place_diagonal.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -46,7 +49,7 @@ fclean:
 
 test: $(NAME)
 	@-mkdir -p result
-	@-././resources/filler_vm -f resources/maps/map01 -p1 resources/players/abanlin.filler -p2 ./tle-dieu.filler | tee result/result.txt
+	@-././resources/filler_vm -f resources/maps/map01 -p1 resources/players/carli.filler -p2 ./tle-dieu.filler | tee result/result.txt
 	@-mv filler.trace result
 	@printf "\n$(YELLOW)###############FT_DPRINTF###############\n$(NC)\n"
 	@cat result/read.txt
