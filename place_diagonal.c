@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/18 19:09:03 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/18 19:38:00 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/19 01:42:03 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ int     place_top_left(t_map *map, t_piece *piece)
 
 	ft_dprintf(map->fd, "\n{cyan}debut place piece{reset}\n");
 	y = -piece->height + 1;
-	while (y < map->y_max)
+	while (y < map->height)
 	{
 		x = -piece->width + 1;
-		while (x < map->x_max)
+		while (x < map->width)
 		{
 			if (possible_to_place(map, piece, y, x))
 			{
@@ -38,16 +38,16 @@ int     place_top_left(t_map *map, t_piece *piece)
 	return (0);
 }
 
-int     place_top_rigth(t_map *map, t_piece *piece)
+int     place_top_right(t_map *map, t_piece *piece)
 {
 	int x;
 	int y;
 
 	ft_dprintf(map->fd, "\n{cyan}debut place piece{reset}\n");
 	y = -piece->height + 1;
-	while (y < map->y_max)
+	while (y < map->height)
 	{
-		x = map->x_max;
+		x = map->width;
 		while (x > -piece->width)
 		{
 			if (possible_to_place(map, piece, y, x))
@@ -70,11 +70,11 @@ int     place_down_left(t_map *map, t_piece *piece)
 	int y;
 
 	ft_dprintf(map->fd, "\n{cyan}debut place piece{reset}\n");
-	y = map->y_max;
+	y = map->height;
 	while (y > -piece->height)
 	{
 		x = -piece->width + 1;
-		while (x < map->x_max)
+		while (x < map->width)
 		{
 			if (possible_to_place(map, piece, y, x))
 			{
@@ -90,16 +90,16 @@ int     place_down_left(t_map *map, t_piece *piece)
 	return (0);
 }
 
-int     place_down_rigth(t_map *map, t_piece *piece)
+int     place_down_right(t_map *map, t_piece *piece)
 {
 	int x;
 	int y;
 
 	ft_dprintf(map->fd, "\n{cyan}debut place piece{reset}\n");
-	y = map->y_max;
+	y = map->height;
 	while (y > -piece->height)
 	{
-		x = map->x_max;
+		x = map->width;
 		while (x > -piece->width)
 		{
 			if (possible_to_place(map, piece, y, x))

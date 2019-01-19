@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 19:17:31 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/18 20:33:24 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/19 02:09:05 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,57 @@ int		get_player_info(t_map *map)
 	return (map->order);
 }
 
+void	get_enemy_info(t_map *map, t_enemy *enemy)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < map->height)
+	{
+		x = 0;
+		while (x < map->width)
+		{
+			if ((enemy->x_min == -1 || enemy->x_min > x) && map->content[y][x] == map->adv_sign)
+				enemy->x_min = x;
+			if ((enemy->x_max == -1 || enemy->x_max < x) && map->content[y][x] == map->adv_sign)
+				enemy->x_max = x;
+			if ((enemy->y_min == -1 || enemy->y_min > y) && map->content[y][x] == map->adv_sign)
+				enemy->y_min = y;
+			if ((enemy->y_max == -1 || enemy->y_max < y) && map->content[y][x] == map->adv_sign)
+				enemy->y_max = y;
+			++x;
+		}
+		++y;
+	}
+	ft_dprintf(map->fd, "{cyan}%d %d %d %d\n",enemy->x_min, enemy->x_max, enemy->y_min, enemy->y_max);
+}
+
+void	map_analyse(t_map *map)
+{
+	int x;
+	int y;
+
+	y = 0;
+	x = 0;
+	while (y < map->height)
+	{
+		if (!map->left && map->content[y][0] == map->my_sign)
+			map->left = 1;
+		if (!map->right && map->content[y][map->width - 1] == map->my_sign)
+			map->right = 1;
+		++y;
+	}
+	while (x < map->width)
+	{
+		if (!map->top && map->content[0][x] == map->my_sign)
+			map->top = 1;
+		if (!map->bottom && map->content[map->height - 1][x] == map->my_sign)
+			map->bottom = 1;
+		++x;
+	}
+}
+
 int		possible_to_place(t_map *map, t_piece *piece, int y, int x)
 {
 	int	j;
@@ -57,7 +108,7 @@ int		possible_to_place(t_map *map, t_piece *piece, int y, int x)
 		{
 			if (piece->content[j][i] == '*')
 			{
-				if (y + j < 0 || y + j >= map->y_max || x + i < 0 || x + i >= map->x_max)
+				if (y + j < 0 || y + j >= map->height || x + i < 0 || x + i >= map->width)
 					return (0);
 				if ((map->content[y + j][x + i] != map->my_sign || ++connect > 1) && (map->content[y + j][x + i] != '.'))
 					return (0);
@@ -69,14 +120,29 @@ int		possible_to_place(t_map *map, t_piece *piece, int y, int x)
 	return (connect);
 }
 
+int		solve(t_map *map, t_piece *piece)
+{
+	if (place_top_left(map, piece))
+	{
+		ft_dprintf(map->fd, "{green}piece has been well placed\n");
+		return (1);
+	}
+	return (0);
+}
+
 int		main(void)
 {
 	t_map	map;
 	t_piece piece;
+	t_enemy	enemy;
 	int		j;
 	int		loop;
 
 	loop = 1;
+	enemy.x_min = -1;
+	enemy.y_min = -1;
+	enemy.x_max = -1;
+	enemy.y_max = -1;
 	map.content = NULL;
 	map.fd = open("./result/read.txt",  O_TRUNC | O_WRONLY | O_CREAT | O_APPEND);
 	piece.fd = map.fd;
@@ -95,7 +161,7 @@ int		main(void)
 		j = 0;
 		ft_dprintf(map.fd, "{#de6864}-----MAP-----{reset}\n");
 		ft_dprintf(map.fd, "    01234567890123456789012345678901234567890123456789\n");
-		while (j < map.y_max)
+		while (j < map.height)
 		{
 			ft_dprintf(map.fd, "%.3d ", j);
 			ft_dprintf(map.fd, "%s\n", map.content[j++]);
@@ -109,7 +175,9 @@ int		main(void)
 		ft_dprintf(map.fd, "{#fb3268}-----PIECE-----{reset}\n");
 		while (j < piece.height)
 			ft_dprintf(map.fd, "%s\n", piece.content[j++]);
-		if (!place_top_left(&map, &piece))
+		get_enemy_info(&map, &enemy);
+		ft_dprintf(map.fd, "{rgb(254,36,152)}###################ENEMY\n%c\n%d %d %d %d \n", map.adv_sign, enemy.x_min, enemy.x_max, enemy.y_min, enemy.y_max);
+		if (!solve(&map, &piece))
 		{
 			ft_dprintf(map.fd, "error place piece\n");
 			return (1);
