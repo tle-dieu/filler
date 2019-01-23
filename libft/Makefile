@@ -132,7 +132,7 @@ objects/%.o: %.c $(INCLUDES)
 	@mkdir -p $(dir $@) 
 	@$(CC) $(FLAG) -I $(INCLUDES_FOLDER) -o $@ -c $<
 	@printf "$(RMLINE)\r🚀 $(GREEN)$(YELLOW) Compiling:$(NC) $(notdir $<)\r"
-	@sleep 0.05
+	@sleep 0.01
 
 .PHONY: clean
 
