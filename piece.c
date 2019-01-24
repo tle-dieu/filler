@@ -5,15 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/18 19:05:48 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/21 14:25:06 by tle-dieu         ###   ########.fr       */
+/*   Created: 2019/01/24 14:54:38 by tle-dieu          #+#    #+#             */
+/*   Updated: 2019/01/24 21:28:31 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-#include <stdlib.h>
 
-int     get_piece_info(t_piece *piece)
+int		get_piece_info(t_piece *piece)
 {
 	char *line;
 	char *tmp;
@@ -21,14 +20,14 @@ int     get_piece_info(t_piece *piece)
 	line = NULL;
 	piece->height = 0;
 	piece->width = 0;
-	if (get_next_line(0, &line) == 1 && !(ft_strncmp(line,"Piece ", 6)))
+	if (get_next_line(0, &line) == 1 && !(ft_strncmp(line, "Piece ", 6)))
 	{
 		tmp = line + 6;
-		while (*tmp >= '0' && *tmp <= '9' )
+		while (*tmp >= '0' && *tmp <= '9')
 			piece->height = piece->height * 10 + *tmp++ - 48;
 		if (*tmp && *tmp++ != ' ')
 			piece->height = 0;
-		while (*tmp >= '0' && *tmp <= '9' )
+		while (*tmp >= '0' && *tmp <= '9')
 			piece->width = piece->width * 10 + *tmp++ - 48;
 		if (*tmp && *tmp != ':' && !*(tmp + 1))
 			piece->width = 0;
@@ -38,12 +37,12 @@ int     get_piece_info(t_piece *piece)
 	return (piece->width && piece->height);
 }
 
-int     get_piece(t_piece *piece)
+int		get_piece(t_piece *piece)
 {
-	char    *line;
-	int     j;
-	int     i;
-	int     stars;
+	char	*line;
+	int		j;
+	int		i;
+	int		stars;
 
 	j = 0;
 	i = 0;
@@ -65,4 +64,3 @@ int     get_piece(t_piece *piece)
 	ft_dprintf(piece->fd, "fin get_piece\n");
 	return (stars);
 }
-

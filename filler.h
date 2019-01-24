@@ -6,34 +6,38 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/16 21:42:08 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/21 14:45:43 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/24 21:16:35 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FILLER_H
 # define FILLER_H
 
-# define MY_SIGN(x) x == 1 ? 'O' : 'X'
-# define AVD_SIGN(x) x == 2 ? 'O' : 'X'
-
-// pour potentillement retirer vars `sign`
+# define MAP_CONTENT map->content[map->coord.y][map->coord.x]
+# define PLAYER_NAME 17
 
 # include "libft.h"
+# include <stdlib.h>
 
 typedef	struct	s_point
 {
 	int			x;
 	int			y;
-	int			diff;
-	int			last;
 }				t_point;
 
-typedef struct	s_dist
+typedef	struct	s_goal
 {
-	int			x;
-	int			y;
+	int			diff;
+	t_point		coord;
+	int			last;
+}				t_goal;
+
+typedef struct	s_norm
+{
+	t_point		coord;
 	long long	dist;
-}				t_dist;
+}				t_norm;
+
 typedef struct	s_map
 {
 	char		my_sign;
@@ -42,16 +46,19 @@ typedef struct	s_map
 	char		**content;
 	int			width;
 	int			height;
+	t_point		adv_pos;
+	t_point		my_pos;
+	t_point		coord;
 	int			fd;//A ENLEVER
 }				t_map;
 
-typedef	struct	s_enemy
+typedef	struct	s_adv
 {
-	t_point		top;
-	t_point		right;
-	t_point		bottom;
-	t_point		left;
-}				t_enemy;
+	t_goal		top;
+	t_goal		right;
+	t_goal		bottom;
+	t_goal		left;
+}				t_adv;
 
 typedef struct	s_piece
 {
@@ -62,13 +69,12 @@ typedef struct	s_piece
 	int			first;
 }				t_piece;
 
-int				possible_to_place(t_map *map, t_piece *piece, int y, int x);
-int				place_objectif(t_map *map, t_piece *piece, t_point *goal);
+int				get_map_info(t_map *map);
 int				get_map(t_map *map);
+int				get_piece_info(t_piece *piece);
 int				get_piece(t_piece *piece);
-int				place_top_left(t_map *map, t_piece *piece);
-int				place_top_right(t_map *map, t_piece *piece);
-int				place_down_left(t_map *map, t_piece *piece);
-int				place_down_right(t_map *map, t_piece *piece);
+int				place_objectif(t_map *map, t_piece *piece, t_goal *goal);
+void			choose_goal(t_map *map, t_goal **goal, t_adv *adv);
+int				get_strat(t_map *map, t_goal **goal);
 
 #endif

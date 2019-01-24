@@ -5,18 +5,17 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/18 19:06:56 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/19 01:38:04 by matleroy         ###   ########.fr       */
+/*   Created: 2019/01/24 14:51:09 by tle-dieu          #+#    #+#             */
+/*   Updated: 2019/01/24 21:23:04 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-#include <stdlib.h>
 
-int     get_map_info(t_map *map)
+int		get_map_info(t_map *map)
 {
-	char    *line;
-	char    *tmp;
+	char	*line;
+	char	*tmp;
 
 	map->width = 0;
 	map->height = 0;
@@ -24,11 +23,11 @@ int     get_map_info(t_map *map)
 	if (get_next_line(0, &line) == 1 && !ft_strncmp(line, "Plateau ", 8))
 	{
 		tmp = line + 8;
-		while (*tmp >= '0' && *tmp <= '9' )
+		while (*tmp >= '0' && *tmp <= '9')
 			map->height = map->height * 10 + *tmp++ - 48;
 		if (*tmp && *tmp++ != ' ')
 			map->height = 0;
-		while (*tmp >= '0' && *tmp <= '9' )
+		while (*tmp >= '0' && *tmp <= '9')
 			map->width = map->width * 10 + *tmp++ - 48;
 		if (*tmp && *tmp != ':' && !*(tmp + 1))
 			map->width = 0;
@@ -38,10 +37,10 @@ int     get_map_info(t_map *map)
 	return (map->width && map->height);
 }
 
-int     get_map(t_map *map)
+int		get_map(t_map *map)
 {
-	char    *line;
-	int     i;
+	char	*line;
+	int		i;
 
 	i = 0;
 	line = NULL;

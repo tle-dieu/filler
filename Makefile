@@ -8,7 +8,8 @@ RM = rm -f
 SRC = main.c \
 	  piece.c \
 	  map.c \
-	  place_diagonal.c
+	  place.c \
+	  goal.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -64,6 +65,30 @@ test: $(NAME)
 curquitest: $(NAME)
 	(cd filler_check && sh correction.sh -b ../tle-dieu.filler | tee result_p1.txt)
 	(cd filler_check && sh correction.sh -b ../tle-dieu.filler -r | tee result_p2.txt)
+
+alltestm0: $(NAME)
+	(cd filler_check/ && sh filler_check.sh -1 players/abanlin.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/carli.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/champely.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/grati.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/hcao.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/superjeannot.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
+
+alltestm1: $(NAME)
+	(cd filler_check/ && sh filler_check.sh -1 players/abanlin.filler -2 ../tle-dieu.filler -m maps/map01 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/carli.filler -2 ../tle-dieu.filler -m maps/map01 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/champely.filler -2 ../tle-dieu.filler -m maps/map01 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/grati.filler -2 ../tle-dieu.filler -m maps/map01 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/hcao.filler -2 ../tle-dieu.filler -m maps/map01 -g 100 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/superjeannot.filler -2 ../tle-dieu.filler -m maps/map01 -g 100 -a >> all_test.txt)
+
+alltestm2: $(NAME)
+	(cd filler_check/ && sh filler_check.sh -1 players/abanlin.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/carli.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/champely.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/grati.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/hcao.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
+	(cd filler_check/ && sh filler_check.sh -1 players/superjeannot.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
 
 re: fclean all
 
