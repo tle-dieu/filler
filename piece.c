@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 14:54:38 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/24 21:28:31 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/28 22:41:22 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,20 @@ int		get_piece_info(t_piece *piece)
 			piece->width = 0;
 	}
 	free(line);
-	ft_dprintf(piece->fd, "fin get_piece_info\n");
 	return (piece->width && piece->height);
 }
 
-int		get_piece(t_piece *piece)
+int		create_piece(t_piece *piece)
 {
-	char	*line;
 	int		j;
 	int		i;
 	int		stars;
+	char	*line;
 
 	j = 0;
 	i = 0;
 	stars = 0;
 	line = NULL;
-	if (!get_piece_info(piece) || !(piece->content = (char **)malloc(sizeof(char *) * piece->height)))
-	{
-		free(line);
-		return (0);
-	}
 	while (j < piece->height && get_next_line(0, &line))
 	{
 		i = 0;
@@ -60,7 +54,25 @@ int		get_piece(t_piece *piece)
 			if (line[i++] == '*' && ++stars == 1)
 				piece->first = j;
 		piece->content[j++] = line;
+		if ((j == piece->height && !stars) || i != piece->width)
+		{
+			free_content(&piece->content, j);
+			return (0);
+		}
 	}
-	ft_dprintf(piece->fd, "fin get_piece\n");
-	return (stars);
+	return (1);
+}
+
+int		get_piece(t_piece *piece)
+{
+	char	*line;
+
+	line = NULL;
+	if (!get_piece_info(piece)
+	|| !(piece->content = (char **)malloc(sizeof(char *) * piece->height)))
+	{
+		free(line);
+		return (0);
+	}
+	return (create_piece(piece));
 }

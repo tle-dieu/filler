@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 15:07:43 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/24 21:27:29 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/28 22:41:39 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ int		possible_to_place(t_map *map, t_piece *piece, int y, int x)
 		{
 			if (piece->content[j][i] == '*')
 			{
-				if (y + j < 0 || y + j >= map->height || x + i < 0 || x + i >= map->width)
-					return (0);
-				if ((map->content[y + j][x + i] != map->my_sign || ++connect > 1) && (map->content[y + j][x + i] != '.'))
+				if ((x + i >= map->width || y + j >= map->height
+				|| y + j < 0 || x + i < 0)
+				|| ((map->content[y + j][x + i] != map->my_sign
+				|| ++connect > 1) && (map->content[y + j][x + i] != '.')))
 					return (0);
 			}
 			i++;
@@ -53,13 +54,9 @@ int		comp_dist(t_piece *piece, t_goal *goal, t_point coord, t_norm *norm)
 		i = 0;
 		while (i < piece->width)
 		{
-			if (piece->content[j][i] == '*')
-			{
-				tmp = (goal->coord.y - coord.y - j) * (goal->coord.y - coord.y - j);
-				tmp += (goal->coord.x - coord.x - i) * (goal->coord.x - coord.x - i);
-				if (tmp < dist || dist == -1)
-					dist = tmp;
-			}
+			if (piece->content[j][i] == '*' && (((tmp = get_norm(goal->Y,
+			Y - j, goal->X, X - i)) || dist == -1)))
+				dist = tmp;
 			++i;
 		}
 		++j;
@@ -76,26 +73,24 @@ int		place_objectif(t_map *map, t_piece *piece, t_goal *goal)
 {
 	t_norm norm;
 
-	ft_dprintf(map->fd, "\n{cyan}debut place piece{reset}\n");
-	map->coord.y = -piece->height + 1;
+	map->Y = -piece->height + 1;
 	norm = (t_norm){{0, 0}, -1};
-	while (map->coord.y < map->height)
+	while (map->Y < map->height)
 	{
-		map->coord.x = -piece->width + 1;
-		while (map->coord.x < map->width)
+		map->X = -piece->width + 1;
+		while (map->X < map->width)
 		{
-			if (possible_to_place(map, piece, map->coord.y, map->coord.x))
+			if (possible_to_place(map, piece, map->Y, map->X))
 			{
 				if (comp_dist(piece, goal, map->coord, &norm))
-				{
-					norm.coord.x = map->coord.x;
-					norm.coord.y = map->coord.y;
-				}
+					norm.coord = (t_point){map->X, map->Y};
 			}
-			++map->coord.x;
+			++map->X;
 		}
-		++map->coord.y;
+		++map->Y;
 	}
-	ft_printf("%d %d\n", norm.coord.y, norm.coord.x);
+	free_content(&map->content, map->height);
+	free_content(&piece->content, piece->height);
+	ft_printf("%d %d\n", norm.Y, norm.X);
 	return (norm.dist != -1);
 }

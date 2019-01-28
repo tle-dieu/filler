@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 14:51:09 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/24 21:23:04 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/28 22:40:48 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int		get_map_info(t_map *map)
 			map->width = 0;
 	}
 	free(line);
-	ft_dprintf(map->fd, "fin get_map_info\n");
 	return (map->width && map->height);
 }
 
@@ -46,14 +45,22 @@ int		get_map(t_map *map)
 	line = NULL;
 	map->content = NULL;
 	if (!get_map_info(map) || get_next_line(0, &line) != 1
-			|| !(map->content = (char **)malloc(sizeof(char *) * map->height)))
+	|| !(map->content = (char **)malloc(sizeof(char *) * map->height)))
 	{
 		free(line);
 		return (0);
 	}
+	free(line);
 	while (i < map->height && get_next_line(0, &line) == 1)
-		map->content[i++] = line + 4; // free content en cas d'erreur / pareil pour get_piece
-	i = 0;
-	ft_dprintf(map->fd, "fin get_map\n");
-	return (1);
+	{
+		if ((int)ft_strlen(line) - 4 != map->width
+		|| !(map->content[i++] = ft_strdup(line + 4)))
+		{
+			free(line);
+			free_content(&map->content, i);
+			return (0);
+		}
+		free(line);
+	}
+	return (i == map->height);
 }
