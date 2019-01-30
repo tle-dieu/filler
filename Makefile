@@ -50,11 +50,13 @@ $(LIBFT):
 
 clean:
 	@(cd $(LIBDIR) && $(MAKE) $@)
+	@(cd $(VISU_PRINTF_FOLDER) && $(MAKE) $@)
 	@$(RM) $(OBJ)
 	@printf "$(RED)The filler objects have been removed$(NC)\n"
 
 fclean:
 	@(cd $(LIBDIR) && $(MAKE) $@)
+	@(cd $(VISU_PRINTF_FOLDER) && $(MAKE) $@)
 	@$(RM) $(OBJ) $(NAME)
 	@printf "$(RED)The filler objects have been removed$(NC)\n"
 	@printf "$(RED)$(NAME) has been removed$(NC)\n"
@@ -78,6 +80,7 @@ visu_printf: $(NAME) $(VISU_PRINTF)
 	@-rm -f result/read.txt
 	@-mv tle-dieu.filler resources/players
 	@-././resources/filler_vm -f resources/maps/$(map) -p1 resources/players/./$(p1).filler -p2 resources/players/./$(p2).filler | tee test.txt | visualizer/./visu_printf
+
 	@-mv filler.trace result
 
 $(VISU_PRINTF):
