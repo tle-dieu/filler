@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visualizer.h                                       :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/29 16:49:16 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/30 03:19:19 by tle-dieu         ###   ########.fr       */
+/*   Created: 2019/01/29 15:30:33 by tle-dieu          #+#    #+#             */
+/*   Updated: 2019/01/29 18:10:58 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VISUALIZER_H
-# define VISUALIZER_H
+#include "libft/includes/libft.h"
+#include <unistd.h>
+#include <stdio.h>
 
-typedef struct	s_visu
+int		main(void)
 {
-	char		*p1;
-	char		*p2;
-	char		**map;
-	int			map_h;
-	int			map_w;
-	int			p1_score;
-	int			p2_score;
-	char		*line;
-	char		**piece;
-	int			piece_w;
-	int			piece_h;
-	int			x;
-	int			y;
-	char		actual_p;
-}				t_visu;
+	int i;
 
-#endif
+	i = 0;
+	ft_printf("{cursor_hide}");
+	ft_printf("\\033[%0;0H");
+	ft_printf("{clear}");
+	ft_printf("{remove_line}");
+	ft_printf("{cursor_show}");
+	ft_printf("{reset}");
+	while (1)
+		;
+}

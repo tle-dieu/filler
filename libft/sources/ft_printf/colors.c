@@ -6,32 +6,36 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 00:24:00 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/17 12:59:04 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/29 15:51:31 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	*get_style(char *color)
+static char	*more_style(char *color)
 {
-	if (!ft_strcmp("{reset}", color))
-		return ("\x1b[0m\0");
-	if (!ft_strcmp("{bold}", color))
-		return ("\x1b[1m\0");
-	if (!ft_strcmp("{low}", color))
-		return ("\x1b[2m\0");
-	if (!ft_strcmp("{italic}", color))
-		return ("\x1b[3m\0");
 	if (!ft_strcmp("{underline}", color))
 		return ("\x1b[4m\0");
 	if (!ft_strcmp("{background}", color))
 		return ("\x1b[7m\0");
 	if (!ft_strcmp("{clear}", color))
 		return ("\x1b[2J");
+	if (!ft_strcmp("{cursor_home}", color))
+		return ("\x1b[H");
+	if (!ft_strcmp("{cursor_save}", color))
+		return ("\x1b[s");
+	if (!ft_strcmp("{cursor_restore}", color))
+		return ("\x1b[u");
+	if (!ft_strcmp("{cursor_hide}", color))
+		return ("\x1b[?25l");
+	if (!ft_strcmp("{cursor_show}", color))
+		return ("\x1b[?25h");
+	if (!ft_strcmp("{remove_line}", color))
+		return ("\x1b[2K");
 	return (NULL);
 }
 
-char		*get_color(char *color)
+char		*get_style(char *color)
 {
 	if (!ft_strcmp("{black}", color))
 		return ("\x1b[0;30m\0");
@@ -49,7 +53,15 @@ char		*get_color(char *color)
 		return ("\x1b[0;36m\0");
 	if (!ft_strcmp("{white}", color))
 		return ("\x1b[0;37m\0");
-	return (get_style(color));
+	if (!ft_strcmp("{reset}", color))
+		return ("\x1b[0m\0");
+	if (!ft_strcmp("{bold}", color))
+		return ("\x1b[1m\0");
+	if (!ft_strcmp("{low}", color))
+		return ("\x1b[2m\0");
+	if (!ft_strcmp("{italic}", color))
+		return ("\x1b[3m\0");
+	return (more_style(color));
 }
 
 static char	*init_rgb(char *str, int r, int g, int b)

@@ -3,6 +3,9 @@ CC = gcc
 FLAG = -Wall -Werror -Wextra
 LDFLAG = -L./$(LIBDIR) -lft
 
+VISU_PRINTF_FOLDER = visualizer/
+VISU_PRINTF = $(VISU_PRINTF_FOLDER)visu_printf
+
 RM = rm -f
 
 SRC = main.c \
@@ -64,38 +67,21 @@ test: $(NAME)
 	@-././resources/filler_vm -f resources/maps/$(map) -p1 resources/players/./$(p1).filler -p2 resources/players/./$(p2).filler | tee result/result.txt
 	@-mv filler.trace result
 
-curquitest: $(NAME)
-	(cd filler_check && sh correction.sh -b ../tle-dieu.filler | tee result_p1.txt)
-	(cd filler_check && sh correction.sh -b ../tle-dieu.filler -r | tee result_p2.txt)
-
-alltestm0: $(NAME)
-	(cd filler_check/ && sh filler_check.sh -1 players/abanlin.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/carli.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/champely.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/grati.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/hcao.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/superjeannot.filler -2 ../tle-dieu.filler -m maps/map00 -g 100 -a >> all_test.txt)
-
-alltestm1: $(NAME)
-	(cd filler_check/ && sh filler_check.sh -1 players/abanlin.filler -2 ../tle-dieu.filler -m maps/map01 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/carli.filler -2 ../tle-dieu.filler -m maps/map01 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/champely.filler -2 ../tle-dieu.filler -m maps/map01 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/grati.filler -2 ../tle-dieu.filler -m maps/map01 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/hcao.filler -2 ../tle-dieu.filler -m maps/map01 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/superjeannot.filler -2 ../tle-dieu.filler -m maps/map01 -g 50 -a >> all_test.txt)
-
-alltestm2: $(NAME)
-	(cd filler_check/ && sh filler_check.sh -1 players/abanlin.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/carli.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/champely.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/grati.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/hcao.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
-	(cd filler_check/ && sh filler_check.sh -1 players/superjeannot.filler -2 ../tle-dieu.filler -m maps/map02 -g 50 -a >> all_test.txt)
-
 visu:
 	(cd visualizer && gcc -I /usr/local/include visualizer.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -L ../libft/ -lft)
 	resources/./filler_vm -f resources/maps/map00 -p1 ./tle-dieu.filler -p2 resources/players/superjeannot.filler | visualizer/./a.out
+	
+visu_printf: $(NAME) $(VISU_PRINTF)
+	make -C visualizer
+	@-mkdir -p result
+	@-rm -f result/result.txt
+	@-rm -f result/read.txt
+	@-mv tle-dieu.filler resources/players
+	@-././resources/filler_vm -f resources/maps/$(map) -p1 resources/players/./$(p1).filler -p2 resources/players/./$(p2).filler | tee test.txt | visualizer/./visu_printf
+	@-mv filler.trace result
 
+$(VISU_PRINTF):
+	@(cd $(VISU_PRINTF_FOLDER) && $(MAKE))
 
 re: fclean all
 

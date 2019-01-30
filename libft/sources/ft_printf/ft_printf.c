@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 20:04:11 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/17 12:45:14 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/29 12:00:37 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	check_color(t_print *buff, char **format)
 	if (!ft_strncmp(col, "{rgb(", 5) || !ft_strncmp(col, "{#", 2))
 		s = (col[1] == '#' ? hex_color(col + 2, rgb) : dec_color(col, rgb));
 	else
-		s = get_color(col);
+		s = get_style(col);
 	if (s)
 	{
 		*format += i;

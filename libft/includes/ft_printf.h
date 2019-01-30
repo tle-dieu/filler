@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 21:48:56 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/17 12:47:16 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/29 11:57:39 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ char				*get_specialf(int sign, int inf, char conv);
 ** -------------------COLORS-------------------
 */
 
-char				*get_color(char *color);
+char				*get_style(char *color);
 char				*dec_color(char *color, char *rgb);
 char				*hex_color(char *s, char *rgb);
 
