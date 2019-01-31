@@ -28,9 +28,9 @@ int		possible_to_place(t_map *map, t_piece *piece, int y, int x)
 			if (piece->content[j][i] == '*')
 			{
 				if ((x + i >= map->width || y + j >= map->height
-				|| y + j < 0 || x + i < 0)
-				|| ((map->content[y + j][x + i] != map->my_sign
-				|| ++connect > 1) && (map->content[y + j][x + i] != '.')))
+							|| y + j < 0 || x + i < 0)
+						|| ((map->content[y + j][x + i] != map->my_sign
+								|| ++connect > 1) && (map->content[y + j][x + i] != '.')))
 					return (0);
 			}
 			i++;
@@ -54,8 +54,8 @@ int		comp_dist(t_piece *piece, t_goal *goal, t_point coord, t_norm *norm)
 		i = 0;
 		while (i < piece->width)
 		{
-			if (piece->content[j][i] == '*' && (((tmp = get_norm(goal->Y,
-			Y - j, goal->X, X - i)) || dist == -1)))
+			if ((piece->content[j][i] == '*') && ((tmp = get_norm
+			(goal->Y, Y + j, goal->X, X + i)) < dist || dist == -1))
 				dist = tmp;
 			++i;
 		}
