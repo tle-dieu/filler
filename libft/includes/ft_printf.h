@@ -131,5 +131,6 @@ char				*get_specialf(int sign, int inf, char conv);
 char				*get_style(char *color);
 char				*dec_color(char *color, char *rgb);
 char				*hex_color(char *s, char *rgb);
+char				*get_bg(char *col, char *seq);
 
 #endif

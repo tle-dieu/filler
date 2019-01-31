@@ -19,12 +19,6 @@ int		main(void)
 	int i;
 
 	i = 0;
-	ft_printf("{cursor_hide}");
-	ft_printf("\\033[%0;0H");
-	ft_printf("{clear}");
-	ft_printf("{remove_line}");
-	ft_printf("{cursor_show}");
-	ft_printf("{reset}");
-	while (1)
-		;
+	ft_printf("\x1b[48;2;255;0;0m Background blackcolor: \n");
+	ft_printf("\033[38;2;255;255;0m{italic}Foreground color: red\n");
 }

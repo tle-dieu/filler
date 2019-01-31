@@ -12,13 +12,18 @@
 
 #include "ft_printf.h"
 #include <unistd.h>
+#include <stdlib.h>
 
 void	color_in_buff(t_print *buff, char *color)
 {
+	char *tmp;
+
+	tmp = color;
 	if (buff->i + 25 >= BS_PRINTF)
 		empty_buff(buff);
 	while (*color)
 		buff->str[buff->i++] = *color++;
+	free(tmp);
 }
 
 void	field_in_buff(t_print *buff, int width, char zero)

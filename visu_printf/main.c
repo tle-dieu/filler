@@ -21,7 +21,7 @@
 
 void	print_title(t_visu *visu)
 {
-	ft_printf("\033[9;0H");
+	ft_printf("\033[%9;%dH", visu->print_width);
 	ft_printf("\n{#c3282f}{bold}%-*s{#ffffff}{bold}VS{#3e92cc}{bold}%*s\n", visu->map_w - 2, visu->p1, visu->map_w - 2, visu->p2);
 }
 
@@ -244,7 +244,7 @@ void	print_score(t_visu *visu)
 
 	p1 = visu->p1_score / map_size;
 	p2 = visu->p2_score / map_size;
-	ft_printf("\033[%d;4H", visu->map_h + 13);
+	ft_printf("\033[%d;%dH", visu->map_h + 13, visu->print_width);
 	ft_printf("\n  {#c3282f}%5d ", visu->p1_score);
 	ft_printf("{#c3282f}{background}%*c", p1, ' ');
 	if ((width  - p1 - p2 > 0))

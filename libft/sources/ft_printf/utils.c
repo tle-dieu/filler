@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
 char		*atoi_jr(char *format, int *nb)
 {
@@ -75,4 +75,12 @@ uintmax_t	get_unsigned(va_list args, t_flag *flags)
 	else
 		nb = va_arg(args, unsigned);
 	return (nb);
+}
+
+char		*get_bg(char *col, char *seq)
+{
+	if ((col = ft_strchr(col, ':')) && !ft_strcmp(col, ":bg}"))
+		if ((col = ft_strchr(seq, '3')))
+			++(*col);
+	return (seq);
 }
