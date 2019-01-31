@@ -21,8 +21,10 @@
 
 void	print_title(t_visu *visu)
 {
-	ft_printf("\033[%9;%dH", visu->print_width);
-	ft_printf("\n{#c3282f}{bold}%-*s{#ffffff}{bold}VS{#3e92cc}{bold}%*s\n", visu->map_w - 2, visu->p1, visu->map_w - 2, visu->p2);
+	ft_printf("\033[9;5H");
+	ft_printf("{#232323:bg}");
+	ft_printf("{#c3282f}{bold}%-*s{#ffffff}{bold}VS{#3e92cc}{bold}%*s\n", visu->map_w - 2, visu->p1, visu->map_w - 2, visu->p2);
+	ft_printf("{reset}");
 }
 
 void		free_content(char ***content, int height_map)
@@ -87,12 +89,14 @@ int		finish_game(t_visu *visu)
 	char	*line_x;
 
 	line_x = NULL;
+	ft_printf("{#232323:bg}");
 	if (visu->p1_score > visu->p2_score)
-		ft_printf("\n{green}{bold}%s won\n{reset}", visu->p1);	
+		ft_printf("\n{green}{bold}%s won\n", visu->p1);	
 	else if (visu->p1_score < visu->p2_score)
-		ft_printf("\n{green}{bold}%s won\n{reset}", visu->p2);	
+		ft_printf("\n{green}{bold}%s won\n", visu->p2);	
 	else
-		ft_printf("\n{white}{bold}equality\n{reset}");	
+		ft_printf("\n{white}{bold}equality\n");	
+	ft_printf("{reset}");
 	if (get_next_line(0, &line_x) != 1 || ft_strncmp(line_x, "== X fin:", 9))
 	{
 		free(line_x);
@@ -210,6 +214,7 @@ int place_piece(t_visu *visu)
 		return (0);
 	if (!possible_to_place(visu, visu->y, visu->x))
 		return (1);
+	ft_printf("{#232323:bg}");
 	while (j < visu->piece_h)
 	{
 		i = 0;
@@ -232,25 +237,57 @@ int place_piece(t_visu *visu)
 	return (1);
 }
 
+void	print_score2(t_visu *visu)
+{
+	int width;
+	int map_size;
+	int p1;
+	int p2;
+	int i;
+
+	width = visu->map_w * 2 - 10;
+	map_size = visu->map_h * visu->map_w / width;
+	p1 = visu->p1_score / map_size;
+	p2 = visu->p2_score / map_size;
+	ft_printf("{#232323:bg}");
+	ft_printf("\033[%d;4H", visu->map_h + 13);
+	ft_printf("\n {#c3282f}%5d ", visu->p1_score);
+	ft_printf("{#c3282f}");
+	i = 0;
+	ft_printf(" ");
+	while (i++ < p1)
+		ft_printf("●");
+	i = 0;
+	ft_printf("{#484848}");
+	while (i++ < (width  - p1 - p2))
+		ft_printf("●");
+	ft_printf("{#3e92cc}");
+	i = 0;
+	while (i++ < p2)
+		ft_printf("●");
+	ft_printf(" ");
+	ft_printf("{reset}{#232323:bg}{#3e92cc} %-5d\n{reset}", visu->p2_score);
+}
+
 void	print_score(t_visu *visu)
 {
 	int width;
 	int map_size;
 	int p1;
 	int p2;
-	
+
 	width = visu->map_w * 2 - 10;
 	map_size = visu->map_h * visu->map_w / width;
-
 	p1 = visu->p1_score / map_size;
 	p2 = visu->p2_score / map_size;
-	ft_printf("\033[%d;%dH", visu->map_h + 13, visu->print_width);
-	ft_printf("\n  {#c3282f}%5d ", visu->p1_score);
+	ft_printf("{#232323:bg}");
+	ft_printf("\033[%d;6H", visu->map_h + 14);
+	ft_printf("{remove_line}{#c3282f}%5d ", visu->p1_score);
 	ft_printf("{#c3282f}{background}%*c", p1, ' ');
 	if ((width  - p1 - p2 > 0))
 		ft_printf("{#484848}{background}%*c", width  - p1 - p2, ' ');
 	ft_printf("{#3e92cc}{background}%*c", p2, ' ');
-	ft_printf("{reset}{#3e92cc} %-5d\n{reset}", visu->p2_score);
+	ft_printf("{remove_line}{reset}{#232323:bg}{#3e92cc} %-5d\n{reset}", visu->p2_score);
 }
 
 void	get_score(t_visu *visu)
@@ -269,12 +306,12 @@ void	get_score(t_visu *visu)
 			if (visu->map[y][x] == 'x' || visu->map[y][x] == 'X' )
 				++visu->p2_score;	
 			else if (visu->map[y][x] == 'o' || visu->map[y][x] == 'O' )
-				++visu->p1_score;	
+				++visu->p1_score;
 			++x;
 		}
 		++y;	
 	}
-	print_score(visu);
+	print_score2(visu);
 }
 
 void	print_background(t_visu *visu)
@@ -282,9 +319,9 @@ void	print_background(t_visu *visu)
 	int i;
 
 	i = 0;
+	ft_printf("{#232323:bg}");
 	while (i++ < visu->w.ws_col)
-		ft_printf("{#232323}{background}%*c", visu->w.ws_row, ' ');
-	ft_printf("{reset}");
+		ft_printf("%*c", visu->w.ws_row, ' ');
 }
 
 int		main(void)
@@ -299,9 +336,8 @@ int		main(void)
 	ft_printf("{cursor_hide}{clear}{remove_line}");
 	print_background(&visu);
 	if (get_next_line(0, &visu.line) && !(get_map(&visu)))
-			return (1);
+		return (1);
 	print_title(&visu);
-	ft_printf("\033[12;0H");
 	print_map(&visu);
 	while (1)
 	{

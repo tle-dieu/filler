@@ -12,7 +12,7 @@
 
 #ifndef VISUALIZER_H
 # define VISUALIZER_H
-# define C_PLAY "◉"
+# define C_PLAY "◼"
 //◉ ◼ ◯ ●▢ 
 #include "libft.h"
 #include <sys/ioctl.h>

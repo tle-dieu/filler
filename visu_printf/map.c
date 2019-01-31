@@ -71,10 +71,11 @@ void    print_map(t_visu *visu)
 	int j;
 
 	j = 0;
+	ft_printf("{#232323:bg}");
 	while (j < visu->map_h)
 	{
 		i = 0;
-		ft_printf("   ");
+		ft_printf("\033[%d;4H", j + 12);
 		while (i < visu->map_w)
 		{
 			if (visu->map[j][i] == 'O')
@@ -88,4 +89,5 @@ void    print_map(t_visu *visu)
 		ft_printf("\n");
 		++j;
 	}
+	ft_printf("{reset}");
 }
