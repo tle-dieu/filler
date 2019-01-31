@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 14:58:33 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/31 18:13:55 by matleroy         ###   ########.fr       */
+/*   Updated: 2019/01/31 18:33:29 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,14 +244,12 @@ void	print_score(t_visu *visu)
 	p1 = visu->p1_score / map_size;
 	p2 = visu->p2_score / map_size;
 	ft_printf("\033[%d;4H", visu->map_h + 13);
-	ft_printf("\n{#c3282f}%5d ", visu->p1_score);
+	ft_printf("\n  {#c3282f}%5d ", visu->p1_score);
 	ft_printf("{#c3282f}{background}%*c", p1, ' ');
-	ft_printf("{#3e92cc}{background}%*c", p2, ' ');
 	if ((width  - p1 - p2 > 0))
 		ft_printf("{#484848}{background}%*c", width  - p1 - p2, ' ');
-	ft_printf("{reset}");
-	ft_printf("{#3e92cc} %-5d\n", visu->p2_score);
-	ft_printf("{reset}");
+	ft_printf("{#3e92cc}{background}%*c", p2, ' ');
+	ft_printf("{reset}{#3e92cc} %-5d\n{reset}", visu->p2_score);
 }
 
 void	get_score(t_visu *visu)
