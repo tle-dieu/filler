@@ -15,6 +15,7 @@
 # define C_PLAY "◉"
 //◉ ◼ ◯ ●▢ 
 #include "libft.h"
+#include <sys/ioctl.h>
 
 typedef struct	s_visu
 {
@@ -33,6 +34,7 @@ typedef struct	s_visu
 	int			y;
 	char		actual_p;
 	int			fd;
+	struct		winsize w;
 }				t_visu;
 int             get_map_infos(t_visu *visu);
 int             get_map(t_visu *visu);

@@ -74,7 +74,7 @@ visu:
 	(cd visualizer && gcc -I /usr/local/include visualizer.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -L ../libft/ -lft)
 	resources/./filler_vm -f resources/maps/map00 -p1 ./tle-dieu.filler -p2 resources/players/superjeannot.filler | visualizer/./a.out
 	
-visu_printf: $(NAME) $(VISU_PRINTF)
+visu_printf: $(NAME)
 	make -C $(VISU_PRINTF_FOLDER)
 	@-mkdir -p result
 	@-rm -f result/result.txt
@@ -88,4 +88,4 @@ $(VISU_PRINTF):
 
 re: fclean all
 
-.PHONY: clean fclean
+.PHONY: clean fclean visu_printf

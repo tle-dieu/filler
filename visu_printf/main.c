@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <sys/ioctl.h>
 
 #define BG(x, color) "{"color"}{background}%"x"c"
 
@@ -276,15 +277,26 @@ void	get_score(t_visu *visu)
 	print_score(visu);
 }
 
+void	print_background(t_visu *visu)
+{
+	int i;
+
+	i = 0;
+	while (i++ < visu->w.ws_col)
+		ft_printf("{white}{background}%*c", visu->w.ws_row, ' ');
+}
+
 int		main(void)
 {
 	t_visu	visu;
 
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &visu.w);
 	visu.line = NULL;
 	visu.fd = open("/dev/ttys001", O_TRUNC | O_WRONLY | O_CREAT | O_APPEND);
 	if (!get_player_name(&visu))
 		return (1);
 	ft_printf("{cursor_hide}{clear}{remove_line}");
+//	print_background(&visu);
 	if (get_next_line(0, &visu.line) && !(get_map(&visu)))
 			return (1);
 	print_title(&visu);
