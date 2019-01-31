@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 14:58:33 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/31 16:59:38 by matleroy         ###   ########.fr       */
+/*   Updated: 2019/01/31 17:52:31 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 void	print_title(t_visu *visu)
 {
 	ft_printf("\033[9;0H");
-	ft_printf("\n    {#c3282f}{bold}%-s {#ffffff}{bold}VS {#3e92cc}{bold}%10s\n", visu->p1, visu->p2);
+	ft_printf("\n    {#c3282f}{bold}%-*s{#ffffff}{bold}VS{#3e92cc}{bold}%*s\n", visu->map_w - 2, visu->p1, visu->map_w - 2, visu->p2);
 }
 
 void		free_content(char ***content, int height_map)
@@ -285,13 +285,10 @@ int		main(void)
 	visu.fd = open("/dev/ttys001", O_TRUNC | O_WRONLY | O_CREAT | O_APPEND);
 	if (!get_player_name(&visu))
 		return (1);
-	ft_printf("{cursor_hide}");
-	ft_printf("{clear}");
-	ft_printf("{remove_line}");
-	print_title(&visu);
-	if (get_next_line(0, &visu.line))
-		if (!(get_map(&visu)))
+	ft_printf("{cursor_hide}{clear}{remove_line}");
+	if (get_next_line(0, &visu.line) && !(get_map(&visu)))
 			return (1);
+	print_title(&visu);
 	ft_printf("\033[12;0H");
 	print_map(&visu);
 	while (1)
@@ -313,7 +310,10 @@ int		main(void)
 		else if (!ft_strncmp(visu.line, "== O fin:", 9))
 		{
 			if (!(finish_game(&visu)))
-				return (1);
+			{
+				ft_printf("{cursor_show}");
+				return (0);
+			}
 		}
 		else if (!(ft_strncmp(visu.line, "Piece ", 6)))
 		{
@@ -324,6 +324,4 @@ int		main(void)
 				&& ft_strcmp(visu.line, "Player with X: error on input"))
 			return (1);
 	}
-	ft_printf("\033[0;0H");
-	ft_printf("{cursor_show}");
 }
