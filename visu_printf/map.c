@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   visu_map.c                                         :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: matleroy <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/31 15:45:40 by matleroy          #+#    #+#             */
-/*   Updated: 2019/01/31 15:48:12 by matleroy         ###   ########.fr       */
+/*   Created: 2019/01/31 16:26:37 by matleroy          #+#    #+#             */
+/*   Updated: 2019/01/31 16:30:33 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
+#include "unistd.h"
+#include "stdlib.h"
 
-int     visu_map_info(t_visu *visu)
+
+int     get_map_info(t_visu *visu)
 {
 	char    *tmp;
 
@@ -30,7 +33,7 @@ int     visu_map_info(t_visu *visu)
 	return (visu->map_h && visu->map_w);
 }
 
-int         visu_map(t_visu *visu)
+int        get_map(t_visu *visu)
 {
 	char    *line;
 	int             i;
@@ -62,7 +65,7 @@ int         visu_map(t_visu *visu)
 	return (i == visu->map_h);
 }
 
-void    visu_print_map(t_visu *visu)
+void    print_map(t_visu *visu)
 {
 	int i;
 	int j;

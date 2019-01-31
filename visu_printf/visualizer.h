@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:49:16 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/31 15:49:02 by matleroy         ###   ########.fr       */
+/*   Updated: 2019/01/31 16:57:45 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define VISUALIZER_H
 # define C_PLAY "◉"
 //◉ ◼ ◯ ●▢ 
+#include "libft.h"
+
 typedef struct	s_visu
 {
 	char		*p1;
@@ -32,9 +34,9 @@ typedef struct	s_visu
 	char		actual_p;
 	int			fd;
 }				t_visu;
-
-int             visu_map_infos(t_visu *visu);
-int             visu_map(t_visu *visu);
-void			visu_print_map(t_visu *visu);
+int             get_map_infos(t_visu *visu);
+int             get_map(t_visu *visu);
+void			print_map(t_visu *visu);
+void			free_content(char ***content, int height_map);
 
 #endif

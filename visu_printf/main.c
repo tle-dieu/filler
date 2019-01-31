@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 14:58:33 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/31 15:50:39 by matleroy         ###   ########.fr       */
+/*   Updated: 2019/01/31 16:59:38 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 void	print_title(t_visu *visu)
 {
-
-	ft_printf("\n{#c3282f}{bold}%-16s {#ffffff}{bold}VS {#3e92cc}{bold}%16s\n", visu->p1, visu->p2);
+	ft_printf("\033[9;0H");
+	ft_printf("\n    {#c3282f}{bold}%-s {#ffffff}{bold}VS {#3e92cc}{bold}%10s\n", visu->p1, visu->p2);
 }
 
 void		free_content(char ***content, int height_map)
@@ -245,12 +245,12 @@ void	print_score(t_visu *visu)
 	p2 = visu->p2_score / map_size;
 	i = 0;
 	ft_printf("\033[%d;4H", visu->map_h + 13);
-	ft_printf("{#ffffff}[%d/%d]", visu->p1_score, visu->p2_score);
 	ft_printf("{#c3282f}{background}%*c", p1, ' ');
 	ft_printf("{#3e92cc}{background}%*c", p2, ' ');
 	if ((30  - p1 - p2 > 0))
-		ft_printf("{#484848}{background}%*c{reset}", 30  - p1 - p2, ' ');
+		ft_printf("{#484848}{background}%*c", 30  - p1 - p2, ' ');
 	ft_printf("{reset}");
+	ft_printf("{#ffffff} [%d/%d]", visu->p1_score, visu->p2_score);
 }
 
 void	get_score(t_visu *visu)
@@ -288,13 +288,12 @@ int		main(void)
 	ft_printf("{cursor_hide}");
 	ft_printf("{clear}");
 	ft_printf("{remove_line}");
-	ft_printf("\033[2;0H");
 	print_title(&visu);
 	if (get_next_line(0, &visu.line))
-		if (!(visu_map(&visu)))
+		if (!(get_map(&visu)))
 			return (1);
 	ft_printf("\033[12;0H");
-	visu_print_map(&visu);
+	print_map(&visu);
 	while (1)
 	{
 		get_score(&visu);
@@ -308,7 +307,7 @@ int		main(void)
 		}
 		else if (!ft_strncmp(visu.line, "Plateau ", 8))
 		{
-			if (!(visu_map(&visu)))
+			if (!(get_map(&visu)))
 				return (1);
 		}
 		else if (!ft_strncmp(visu.line, "== O fin:", 9))
