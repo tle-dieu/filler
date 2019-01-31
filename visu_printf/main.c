@@ -22,7 +22,7 @@
 void	print_title(t_visu *visu)
 {
 	ft_printf("\033[9;0H");
-	ft_printf("\n    {#c3282f}{bold}%-*s{#ffffff}{bold}VS{#3e92cc}{bold}%*s\n", visu->map_w - 2, visu->p1, visu->map_w - 2, visu->p2);
+	ft_printf("\n{#c3282f}{bold}%-*s{#ffffff}{bold}VS{#3e92cc}{bold}%*s\n", visu->map_w - 2, visu->p1, visu->map_w - 2, visu->p2);
 }
 
 void		free_content(char ***content, int height_map)
