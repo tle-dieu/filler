@@ -6,12 +6,11 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 14:51:09 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/29 21:34:44 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/31 14:50:02 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
-
 int		get_map_info(t_map *map)
 {
 	char	*line;
@@ -45,7 +44,7 @@ int		get_map(t_map *map)
 	line = NULL;
 	map->content = NULL;
 	if (!get_map_info(map) || get_next_line(0, &line) != 1
-	|| !(map->content = (char **)malloc(sizeof(char *) * map->height)))
+			|| !(map->content = (char **)malloc(sizeof(char *) * map->height)))
 	{
 		free(line);
 		return (0);
@@ -54,7 +53,7 @@ int		get_map(t_map *map)
 	while (i < map->height && get_next_line(0, &line) == 1)
 	{
 		if ((int)ft_strlen(line) - 4 != map->width
-		|| !(map->content[i++] = ft_strdup(line + 4)))
+				|| !(map->content[i++] = ft_strdup(line + 4)))
 		{
 			free(line);
 			free_content(&map->content, i);

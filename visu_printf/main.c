@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 14:58:33 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/30 17:34:12 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/01/31 15:50:39 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,14 @@
 #include "visualizer.h"
 #include <stdlib.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #define BG(x, color) "{"color"}{background}%"x"c"
 
-void	print_title()
+void	print_title(t_visu *visu)
 {
-	char c;
 
-	c = ' ';
-	ft_printf(BG("3","#000000")BG("12","#f44336")BG("1", "#000000")BG("6","#f44336")BG("1", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("7", "#000000")BG("12","#f44336")BG("1", "#000000")BG("14", "#f44336")"\n",c,c,c,c,c,c,c,c,c,c,c,c,c);
-	ft_printf(BG("3","#000000")BG("12","#f44336")BG("1", "#000000")BG("6","#f44336")BG("1", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("7", "#000000")BG("12","#f44336")BG("1", "#000000")BG("14", "#f44336")"\n",c,c,c,c,c,c,c,c,c,c,c,c,c);
-	ft_printf(BG("3","#000000")BG("6","#f44336")BG("14","#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("3", "#000000")BG("5","#f44336")"\n",c,c,c,c,c,c,c,c,c,c,c);
-	ft_printf(BG("3","#000000")BG("9","#f44336")BG("4","#000000")BG("6","#f44336")BG("1", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("7", "#000000")BG("9","#f44336")BG("4", "#000000")BG("14","#f44336")"\n",c,c,c,c,c,c,c,c,c,c);
-	ft_printf(BG("3","#000000")BG("9","#f44336")BG("4","#000000")BG("6","#f44336")BG("1", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("7", "#000000")BG("9","#f44336")BG("4", "#000000")BG("14","#f44336")"\n",c,c,c,c,c,c,c,c,c,c);
-	ft_printf(BG("3","#000000")BG("6","#f44336")BG("7","#000000")BG("6","#f44336")BG("1", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("7", "#000000")BG("6","#f44336")BG("2","#000000")BG("6","#f44336")"\n",c,c,c,c,c,c,c,c,c,c);
-	ft_printf(BG("3","#000000")BG("6","#f44336")BG("7","#000000")BG("6","#f44336")BG("1", "#000000")BG("12", "#f44336")BG("1", "#000000")BG("12","#f44336")BG("1", "#000000")BG("12","#f44336")BG("1", "#000000")BG("6","#f44336")BG("3","#000000")BG("6","#f44336")"\n",c,c,c,c,c,c,c,c,c,c);
-	ft_printf(BG("3","#000000")BG("6","#f44336")BG("7","#000000")BG("6","#f44336")BG("1", "#000000")BG("12", "#f44336")BG("1", "#000000")BG("12","#f44336")BG("1", "#000000")BG("12","#f44336")BG("1", "#000000")BG("6","#f44336")BG("3","#000000")BG("6","#f44336")"\n",c,c,c,c,c,c,c,c,c,c,c,c);
-	ft_printf("{reset}\n");
+	ft_printf("\n{#c3282f}{bold}%-16s {#ffffff}{bold}VS {#3e92cc}{bold}%16s\n", visu->p1, visu->p2);
 }
 
 void		free_content(char ***content, int height_map)
@@ -95,7 +86,12 @@ int		finish_game(t_visu *visu)
 	char	*line_x;
 
 	line_x = NULL;
-	ft_printf("{cursor_show}");
+	if (visu->p1_score > visu->p2_score)
+		ft_printf("\n{green}{bold}%s won\n{reset}", visu->p1);	
+	else if (visu->p1_score < visu->p2_score)
+		ft_printf("\n{green}{bold}%s won\n{reset}", visu->p2);	
+	else
+		ft_printf("\n{white}{bold}equality\n{reset}");	
 	if (get_next_line(0, &line_x) != 1 || ft_strncmp(line_x, "== X fin:", 9))
 	{
 		free(line_x);
@@ -103,56 +99,6 @@ int		finish_game(t_visu *visu)
 	}
 	(void)visu;
 	return (0);
-}
-
-int		get_map_info(t_visu *visu)
-{
-	char	*tmp;
-
-	visu->map_w = 0;
-	visu->map_h = 0;
-	tmp = visu->line + 8;
-	while (*tmp >= '0' && *tmp <= '9')
-		visu->map_h = visu->map_h * 10 + *tmp++ - 48;
-	if (*tmp && *tmp++ != ' ')
-		visu->map_h = 0;
-	while (*tmp >= '0' && *tmp <= '9')
-		visu->map_w = visu->map_w * 10 + *tmp++ - 48;
-	if (*tmp && *tmp != ':' && !*(tmp + 1))
-		visu->map_w = 0;
-	return (visu->map_h && visu->map_w);
-}
-
-int		get_map(t_visu *visu)
-{
-	char	*line;
-	int		i;
-	int		ret;
-
-	i = 0;
-	line = NULL;
-	visu->map = NULL;
-	if ((ret = get_map_info(visu)) != 1)
-		return (ret);
-	if (get_next_line(0, &line) != 1
-			|| !(visu->map = (char **)malloc(sizeof(char *) * visu->map_h)))
-	{
-		free(line);
-		return (-1);
-	}
-	free(line);
-	while (i < visu->map_h && get_next_line(0, &line) == 1)
-	{
-		if ((int)ft_strlen(line) - 4 != visu->map_w
-				|| !(visu->map[i++] = ft_strdup(line + 4)))
-		{
-			free(line);
-			free_content(&visu->map, i);
-			return (-1);
-		}
-		free(line);
-	}
-	return (i == visu->map_h);
 }
 
 int		get_player_name(t_visu *visu)
@@ -174,9 +120,9 @@ int		get_player_name(t_visu *visu)
 			if (!str && !(str = ft_strrchr(line, ' ')))
 				return (0);
 			if (i == 7)
-				visu->p1 = ft_strdup(str + 1);
+				visu->p1 = ft_strcdup(str + 1, '.');
 			else
-				visu->p2 = ft_strdup(str + 1);
+				visu->p2 = ft_strcdup(str + 1, '.');
 		}
 		free(line);
 	}
@@ -222,7 +168,6 @@ int		info_place(t_visu *visu)
 	return (error);
 }
 
-#include <fcntl.h>
 
 int		possible_to_place(t_visu *visu, int y, int x)
 {
@@ -286,29 +231,50 @@ int place_piece(t_visu *visu)
 	return (1);
 }
 
-void	print_map(t_visu *visu)
+void	print_score(t_visu *visu)
 {
 	int i;
-	int j;
+	int map_size;
+	int p1;
+	int p2;
 
-	j = 0;
-	while (j < visu->map_h)
+
+	map_size = visu->map_h * visu->map_w / 30;
+
+	p1 = visu->p1_score / map_size;
+	p2 = visu->p2_score / map_size;
+	i = 0;
+	ft_printf("\033[%d;4H", visu->map_h + 13);
+	ft_printf("{#ffffff}[%d/%d]", visu->p1_score, visu->p2_score);
+	ft_printf("{#c3282f}{background}%*c", p1, ' ');
+	ft_printf("{#3e92cc}{background}%*c", p2, ' ');
+	if ((30  - p1 - p2 > 0))
+		ft_printf("{#484848}{background}%*c{reset}", 30  - p1 - p2, ' ');
+	ft_printf("{reset}");
+}
+
+void	get_score(t_visu *visu)
+{
+	int y;
+	int x;
+
+	y = 0;
+	visu->p1_score = 0;
+	visu->p2_score = 0;
+	while (y < visu->map_h)
 	{
-		i = 0;
-		ft_printf("   ");
-		while (i < visu->map_w)
+		x = 0;
+		while (x < visu->map_w)
 		{
-			if (visu->map[j][i] == 'O')
-				ft_printf("{#c3282f}"C_PLAY" ");
-			else if (visu->map[j][i] == 'X')
-				ft_printf("{#3e92cc}"C_PLAY" ");
-			else
-				ft_printf("{#484848}"C_PLAY" ");
-			++i;
+			if (visu->map[y][x] == 'x' || visu->map[y][x] == 'X' )
+				++visu->p2_score;	
+			else if (visu->map[y][x] == 'o' || visu->map[y][x] == 'O' )
+				++visu->p1_score;	
+			++x;
 		}
-		ft_printf("\n");
-		++j;
+		++y;	
 	}
+	print_score(visu);
 }
 
 int		main(void)
@@ -323,14 +289,15 @@ int		main(void)
 	ft_printf("{clear}");
 	ft_printf("{remove_line}");
 	ft_printf("\033[2;0H");
-	print_title();
+	print_title(&visu);
 	if (get_next_line(0, &visu.line))
-		if (!(get_map(&visu)))
+		if (!(visu_map(&visu)))
 			return (1);
 	ft_printf("\033[12;0H");
-	print_map(&visu);
+	visu_print_map(&visu);
 	while (1)
 	{
+		get_score(&visu);
 		if (get_next_line(0, &visu.line) != 1)
 			return (1);
 		if (!ft_strncmp(visu.line, "<got (X): [", 11)
@@ -341,7 +308,7 @@ int		main(void)
 		}
 		else if (!ft_strncmp(visu.line, "Plateau ", 8))
 		{
-			if (!(get_map(&visu)))
+			if (!(visu_map(&visu)))
 				return (1);
 		}
 		else if (!ft_strncmp(visu.line, "== O fin:", 9))
@@ -358,6 +325,6 @@ int		main(void)
 				&& ft_strcmp(visu.line, "Player with X: error on input"))
 			return (1);
 	}
+	ft_printf("\033[0;0H");
 	ft_printf("{cursor_show}");
-	return (0);
 }
