@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 14:58:33 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/31 17:52:31 by matleroy         ###   ########.fr       */
+/*   Updated: 2019/01/31 18:13:55 by matleroy         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,24 +233,25 @@ int place_piece(t_visu *visu)
 
 void	print_score(t_visu *visu)
 {
-	int i;
+	int width;
 	int map_size;
 	int p1;
 	int p2;
-
-
-	map_size = visu->map_h * visu->map_w / 30;
+	
+	width = visu->map_w * 2 - 10;
+	map_size = visu->map_h * visu->map_w / width;
 
 	p1 = visu->p1_score / map_size;
 	p2 = visu->p2_score / map_size;
-	i = 0;
 	ft_printf("\033[%d;4H", visu->map_h + 13);
+	ft_printf("\n{#c3282f}%5d ", visu->p1_score);
 	ft_printf("{#c3282f}{background}%*c", p1, ' ');
 	ft_printf("{#3e92cc}{background}%*c", p2, ' ');
-	if ((30  - p1 - p2 > 0))
-		ft_printf("{#484848}{background}%*c", 30  - p1 - p2, ' ');
+	if ((width  - p1 - p2 > 0))
+		ft_printf("{#484848}{background}%*c", width  - p1 - p2, ' ');
 	ft_printf("{reset}");
-	ft_printf("{#ffffff} [%d/%d]", visu->p1_score, visu->p2_score);
+	ft_printf("{#3e92cc} %-5d\n", visu->p2_score);
+	ft_printf("{reset}");
 }
 
 void	get_score(t_visu *visu)
