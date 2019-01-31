@@ -3,7 +3,7 @@ CC = gcc
 FLAG = -Wall -Werror -Wextra
 LDFLAG = -L./$(LIBDIR) -lft
 
-VISU_PRINTF_FOLDER = visualizer/
+VISU_PRINTF_FOLDER = visu_printf/
 VISU_PRINTF = $(VISU_PRINTF_FOLDER)visu_printf
 
 RM = rm -f
@@ -20,6 +20,7 @@ OBJ = $(SRC:.c=.o)
 LIBDIR = libft/
 LIBFT = $(LIBDIR)libft.a
 INCLUDE_FOLDER = $(LIBDIR)includes
+INCLUDE = filler.h
 
 GREEN := \033[38;2;12;231;58m
 YELLOW := \033[38;2;251;196;15m
@@ -34,7 +35,7 @@ declare p2 = 3;
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@printf "$(RMLINE)$(YELLOW)All compiled$(NC)\n"
+	@printf "$(RMLINE)$(YELLOW)🌘  All compiled$(NC)\n"
 	@$(CC) -o $@ $(LDFLAG) $^
 	@printf "$(GREEN)$(NAME) has been created$(NC)\n"
 	@tput cnorm
@@ -74,13 +75,12 @@ visu:
 	resources/./filler_vm -f resources/maps/map00 -p1 ./tle-dieu.filler -p2 resources/players/superjeannot.filler | visualizer/./a.out
 	
 visu_printf: $(NAME) $(VISU_PRINTF)
-	make -C visualizer
+	make -C $(VISU_PRINTF_FOLDER)
 	@-mkdir -p result
 	@-rm -f result/result.txt
 	@-rm -f result/read.txt
 	@-mv tle-dieu.filler resources/players
-	@-././resources/filler_vm -f resources/maps/$(map) -p1 resources/players/./$(p1).filler -p2 resources/players/./$(p2).filler | tee test.txt | visualizer/./visu_printf
-
+	@-././resources/filler_vm -f resources/maps/$(map) -p1 resources/players/./$(p1).filler -p2 resources/players/./$(p2).filler | tee result/result.txt | ./$(VISU_PRINTF)
 	@-mv filler.trace result
 
 $(VISU_PRINTF):

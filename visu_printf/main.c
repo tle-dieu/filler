@@ -14,6 +14,7 @@
 #include "visualizer.h"
 #include <stdlib.h>
 #include <unistd.h>
+
 #define BG(x, color) "{"color"}{background}%"x"c"
 
 void	print_title()
@@ -94,6 +95,7 @@ int		finish_game(t_visu *visu)
 	char	*line_x;
 
 	line_x = NULL;
+	ft_printf("{cursor_show}");
 	if (get_next_line(0, &line_x) != 1 || ft_strncmp(line_x, "== X fin:", 9))
 	{
 		free(line_x);
@@ -181,31 +183,6 @@ int		get_player_name(t_visu *visu)
 	return (1);
 }
 
-void	print_map(t_visu *visu)
-{
-	int i;
-	int j;
-
-	j = 0;
-	while (j < visu->map_h)
-	{
-		i = 0;
-		ft_printf("   ");
-		while (i < visu->map_w)
-		{
-			if (visu->map[j][i] == 'O')
-				ft_printf("{#c3282f}▩ ");
-			else if (visu->map[j][i] == 'X')
-				ft_printf("{#3e92cc}▩ ");
-			else
-				ft_printf("{#484848}▩ ");
-			++i;
-		}
-		ft_printf("\n");
-		++j;
-	}
-}
-
 int		info_place(t_visu *visu)
 {
 	char	*line;
@@ -245,14 +222,16 @@ int		info_place(t_visu *visu)
 	return (error);
 }
 
-int place_piece(t_visu *visu)
+#include <fcntl.h>
+
+int		possible_to_place(t_visu *visu, int y, int x)
 {
-	int i;
 	int j;
+	int i;
+	int connect;
 
 	j = 0;
-	if (!info_place(visu))
-		return (0);
+	connect = 0;
 	while (j < visu->piece_h)
 	{
 		i = 0;
@@ -260,18 +239,76 @@ int place_piece(t_visu *visu)
 		{
 			if (visu->piece[j][i] == '*')
 			{
-				ft_printf("\033[%d;%dH", 12 + visu->y + j, (visu->x + i) * 2 + 1 + 3);
+				if ((x + i >= visu->map_w || y + j >= visu->map_h
+							|| y + j < 0 || x + i < 0)
+						|| (((visu->map[y + j][x + i] != visu->actual_p
+									&& visu->map[y + j][x + i] != visu->actual_p + 32)
+								|| ++connect > 1) && (visu->map[y + j][x + i] != '.')))
+					return (0);
+			}
+			i++;
+		}
+		j++;
+	}
+	return (connect);
+}
+
+int place_piece(t_visu *visu)
+{
+	int i;
+	int j;
+
+	j = 0;
+	usleep(10000);
+	if (!info_place(visu))
+		return (0);
+	if (!possible_to_place(visu, visu->y, visu->x))
+		return (1);
+	while (j < visu->piece_h)
+	{
+		i = 0;
+		while (i < visu->piece_w)
+		{
+			if (visu->piece[j][i] == '*')
+			{
+				ft_printf("\033[%d;%dH", 12 + visu->y + j, (visu->x + i) * 2 + 4);
 				if (visu->actual_p == 'O')
-					ft_printf("{#c3282f}▩ ");
+					ft_printf("{#c3282f}"C_PLAY" ");
 				else if (visu->actual_p == 'X')
-					ft_printf("{#3e92cc}▩ ");
+					ft_printf("{#3e92cc}"C_PLAY" ");
 			}
 			++i;
 		}
 		++j;
 	}
 	ft_printf("{reset}");
+	ft_printf("\033[%d;0H", 12 + visu->map_h);
 	return (1);
+}
+
+void	print_map(t_visu *visu)
+{
+	int i;
+	int j;
+
+	j = 0;
+	while (j < visu->map_h)
+	{
+		i = 0;
+		ft_printf("   ");
+		while (i < visu->map_w)
+		{
+			if (visu->map[j][i] == 'O')
+				ft_printf("{#c3282f}"C_PLAY" ");
+			else if (visu->map[j][i] == 'X')
+				ft_printf("{#3e92cc}"C_PLAY" ");
+			else
+				ft_printf("{#484848}"C_PLAY" ");
+			++i;
+		}
+		ft_printf("\n");
+		++j;
+	}
 }
 
 int		main(void)
@@ -279,6 +316,7 @@ int		main(void)
 	t_visu	visu;
 
 	visu.line = NULL;
+	visu.fd = open("/dev/ttys001", O_TRUNC | O_WRONLY | O_CREAT | O_APPEND);
 	if (!get_player_name(&visu))
 		return (1);
 	ft_printf("{cursor_hide}");
@@ -298,7 +336,6 @@ int		main(void)
 		if (!ft_strncmp(visu.line, "<got (X): [", 11)
 				|| !ft_strncmp(visu.line, "<got (O): [", 11))
 		{
-			usleep(10000);
 			if (!place_piece(&visu))
 				return (1);
 		}
@@ -317,7 +354,8 @@ int		main(void)
 			if (!(get_piece(&visu)))
 				return (1);
 		}
-		else
+		else if (ft_strcmp(visu.line, "Player with O: error on input")
+				&& ft_strcmp(visu.line, "Player with X: error on input"))
 			return (1);
 	}
 	ft_printf("{cursor_show}");

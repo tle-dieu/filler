@@ -121,7 +121,7 @@ all: $(NAME)
 	@tput cnorm
 
 $(NAME): $(OBJECTS)
-	@printf "$(RMLINE)$(YELLOW)All compiled$(NC)\n"
+	@printf "$(RMLINE)$(YELLOW)🌘  All compiled$(NC)\n"
 	@$(AR) $(NAME) $(OBJECTS)
 	@printf "$(GREEN)$(NAME) has been created$(NC)\n"
 	@$(RLIB) $(NAME)

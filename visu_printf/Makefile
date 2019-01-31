@@ -19,10 +19,11 @@ RED := \033[38;2;255;60;51m
 RMLINE = \033[2K
 NC := \033[0m
 
+INCLUDE = visualizer.h
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
-	@printf "$(RMLINE)$(YELLOW)All compiled$(NC)\n"
+	@printf "$(RMLINE)$(YELLOW)🌘  All compiled$(NC)\n"
 	@$(CC) -o $@ $(LDFLAG) $^
 	@printf "$(GREEN)$(NAME) has been created$(NC)\n"
 	@tput cnorm
