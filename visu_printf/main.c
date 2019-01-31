@@ -17,6 +17,12 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 
+//centrer le visu, adapter le zoom par rapport a la taille de la map
+//ajouter la pause avec space, ajouter le changement de couleur, ajouter esc pour quitter le programme, bloquer le ctrl-c
+//peut etre ajouter le retour en arriere
+//gerer les sleep en fonction du tps de print ou en fonction de la taille de la map pour simplifier
+//peut etre ajouter des informations sur le cote
+
 #define BG(x, color) "{"color"}{background}%"x"c"
 
 void	print_title(t_visu *visu)
