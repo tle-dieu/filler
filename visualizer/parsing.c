@@ -6,14 +6,14 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:57:59 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 17:28:51 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:26:40 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include <stdlib.h>
 
-void	get_score(t_visu *visu)
+int			get_score(t_visu *visu)
 {
 	int y;
 	int x;
@@ -26,18 +26,19 @@ void	get_score(t_visu *visu)
 		x = 0;
 		while (x < visu->map_w)
 		{
-			if (visu->map[y][x] == 'x' || visu->map[y][x] == 'X' )
+			if (visu->map[y][x] == 'x' || visu->map[y][x] == 'X')
 				++visu->p2_score;
-			else if (visu->map[y][x] == 'o' || visu->map[y][x] == 'O' )
+			else if (visu->map[y][x] == 'o' || visu->map[y][x] == 'O')
 				++visu->p1_score;
 			++x;
 		}
 		++y;
 	}
 	print_score(visu);
+	return (1);
 }
 
-int		get_map_info(t_visu *visu)
+static int	get_map_info(t_visu *visu)
 {
 	char *tmp;
 
@@ -55,7 +56,7 @@ int		get_map_info(t_visu *visu)
 	return (visu->map_h && visu->map_w);
 }
 
-int		get_map(t_visu *visu)
+int			get_map(t_visu *visu)
 {
 	char	*line;
 	int		i;
@@ -84,7 +85,7 @@ int		get_map(t_visu *visu)
 	return (i == visu->map_h);
 }
 
-int		get_piece_info(t_visu *visu)
+static int	get_piece_info(t_visu *visu)
 {
 	char *tmp;
 
@@ -102,7 +103,7 @@ int		get_piece_info(t_visu *visu)
 	return (visu->piece_w && visu->piece_h);
 }
 
-int		get_piece(t_visu *visu)
+int			get_piece(t_visu *visu)
 {
 	int		j;
 	char	*line;

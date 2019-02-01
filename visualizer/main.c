@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 14:58:33 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 17:30:51 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:27:28 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 #include <unistd.h>
 #include <fcntl.h>
 
-int		get_player_name(t_visu *visu)
+static int	get_player_name(t_visu *visu)
 {
 	char	*str;
 	char	*line;
@@ -44,46 +44,49 @@ int		get_player_name(t_visu *visu)
 	return (1);
 }
 
-int		main(void)
+static int	visualizer(t_visu *visu)
 {
-	t_visu	visu;
-
-	ioctl(STDOUT_FILENO, TIOCGWINSZ, &visu.w);
-	visu.line = NULL;
-	visu.fd = open("/dev/ttys001", O_TRUNC | O_WRONLY | O_CREAT | O_APPEND);
-	ft_printf("{cursor_hide}{clear}{remove_line}");
-	if (!get_player_name(&visu) || (get_next_line(0, &visu.line) && !(get_map(&visu))))
-		return (1);
-	visu.score_len = int_len(visu.map_h * visu.map_w) + 1;
-	print_title(&visu);
-	print_map(&visu);
 	while (1)
 	{
-		get_score(&visu);
-		if (get_next_line(0, &visu.line) != 1)
-			return (1);
-		if ((!ft_strncmp(visu.line, "<got (X): [", 11) || !ft_strncmp(visu.line, "<got (O): [", 11)))
+		if (get_score(visu) && get_next_line(0, &visu->line) != 1)
+			return (-1);
+		if ((!ft_strncmp(visu->line, "<got (X): [", 11)
+		|| !ft_strncmp(visu->line, "<got (O): [", 11)))
 		{
-			if (!print_piece(&visu))
+			if (!print_piece(visu))
 				break ;
 		}
-		else if (!ft_strncmp(visu.line, "Plateau ", 8))
+		else if (!ft_strncmp(visu->line, "Plateau ", 8))
 		{
-			if (!get_map(&visu))
+			if (!get_map(visu))
 				break ;
 		}
-		else if (!ft_strncmp(visu.line, "Piece ", 6))
+		else if (!ft_strncmp(visu->line, "Piece ", 6))
 		{
-			if (!get_piece(&visu))
+			if (!get_piece(visu))
 				break ;
 		}
-		else if (!ft_strncmp(visu.line, "== O fin:", 9))
-			return (finish_game(&visu));
-		else if (ft_strcmp(visu.line, "Player with O: error on input")
-				&& ft_strcmp(visu.line, "Player with X: error on input"))
-			break ;
-		free(visu.line);
+		else if (!ft_strncmp(visu->line, "== O fin:", 9))
+			return (finish_game(visu));
+		free(visu->line);
 	}
-	free(visu.line);
 	return (1);
+}
+
+int			main(void)
+{
+	t_visu	visu;
+	int		ret;
+
+	visu.line = NULL;
+	if (!get_player_name(&visu)
+	|| (get_next_line(0, &visu.line) && !(get_map(&visu))))
+		return (1);
+	visu.score_len = int_len(visu.map_h * visu.map_w) + 1;
+	print_init(&visu);
+	free(visu.line);
+	if ((ret = visualizer(&visu)) != -1)
+		free(visu.line);
+	ft_printf("{cursor_show}");
+	return (ret != 0);
 }

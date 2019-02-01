@@ -6,11 +6,29 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 17:13:12 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 17:26:14 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:33:53 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
+#include <unistd.h>
+
+char	*atoi_jr_v2(char *s, int *nb)
+{
+	int sign;
+
+	sign = 1;
+	*nb = 0;
+	if (*s == '-')
+	{
+		sign = -1;
+		s++;
+	}
+	while (*s >= '0' && *s <= '9')
+		*nb = *nb * 10 + *s++ - 48;
+	*nb = *nb * sign;
+	return (s);
+}
 
 int		info_place(t_visu *visu)
 {
@@ -26,31 +44,16 @@ int		info_place(t_visu *visu)
 	sign = 1;
 	visu->actual_p = line[6];
 	tmp = line + 11;
-	if (*tmp == '-')
-	{
-		sign = -1;
-		tmp++;
-	}
-	while (*tmp >= '0' && *tmp <= '9')
-		visu->y = visu->y * 10 + *tmp++ - 48;
-	visu->y *= sign;
+	tmp = atoi_jr_v2(tmp, &visu->y);
 	if (*tmp && *tmp++ != ',')
 		error = 0;
 	if (*tmp && *tmp++ != ' ')
 		error = 0;
-	if (*tmp == '-')
-	{
-		sign = -1;
-		tmp++;
-	}
-	while (*tmp >= '0' && *tmp <= '9')
-		visu->x = visu->x * 10 + *tmp++ - 48;
-	visu->x *= sign;
+	tmp = atoi_jr_v2(tmp, &visu->x);
 	if (*tmp && *tmp != ']' && !*(tmp + 1))
 		error = 0;
 	return (error);
 }
-
 
 int		possible_to_place(t_visu *visu, int y, int x)
 {
@@ -60,6 +63,7 @@ int		possible_to_place(t_visu *visu, int y, int x)
 
 	j = 0;
 	connect = 0;
+	usleep(10000);
 	while (j < visu->piece_h)
 	{
 		i = 0;
@@ -67,11 +71,10 @@ int		possible_to_place(t_visu *visu, int y, int x)
 		{
 			if (visu->piece[j][i] == '*')
 			{
-				if ((x + i >= visu->map_w || y + j >= visu->map_h
-							|| y + j < 0 || x + i < 0)
-						|| (((visu->map[y + j][x + i] != visu->actual_p
-									&& visu->map[y + j][x + i] != visu->actual_p + 32)
-								|| ++connect > 1) && (visu->map[y + j][x + i] != '.')))
+				if ((x + i >= visu->map_w || y + j >= visu->map_h || y + j < 0
+				|| x + i < 0) || (((visu->map[y + j][x + i] != visu->actual_p
+				&& visu->map[y + j][x + i] != visu->actual_p + 32)
+				|| ++connect > 1) && (visu->map[y + j][x + i] != '.')))
 					return (0);
 			}
 			i++;

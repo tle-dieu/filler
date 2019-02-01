@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:44:46 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 17:12:15 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 18:24:57 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ int		print_piece(t_visu *visu)
 	int j;
 
 	j = 0;
-	usleep(10000);
 	if (!info_place(visu))
 		return (0);
 	if (!possible_to_place(visu, visu->y, visu->x))
@@ -31,24 +30,23 @@ int		print_piece(t_visu *visu)
 		i = 0;
 		while (i < visu->piece_w)
 		{
-			if (visu->piece[j][i] == '*')
+			if (visu->piece[j][i++] == '*')
 			{
-				ft_printf("\033[%d;%dH", 12 + visu->y + j, (visu->x + i) * 2 + visu->print_w);
-				if (visu->actual_p == 'O')
-					ft_printf("{#c3282f}"C_PLAY" ");
-				else if (visu->actual_p == 'X')
-					ft_printf("{#3e92cc}"C_PLAY" ");
+				ft_printf("\033[%d;%dH", 12 + visu->y + j,
+				(visu->x + i - 1) * 2 + visu->print_w);
+				visu->actual_p == 'O' ? ft_printf("{#c3282f}"C_PLAY" ")
+				: ft_printf("{#3e92cc}"C_PLAY" ");
 			}
-			++i;
 		}
 		++j;
 	}
-	ft_printf("\033[%d;0H{reset}", 12 + visu->map_h);
-	return (1);
+	return (ft_printf("\033[%d;0H{reset}", 12 + visu->map_h));
 }
 
-void	print_title(t_visu *visu)
+void	print_init(t_visu *visu)
 {
+	ioctl(STDOUT_FILENO, TIOCGWINSZ, &visu->w);
+	ft_printf("{cursor_hide}{clear}{remove_line}");
 	ft_printf("{#232323:bg}");
 	ft_printf("%*c", visu->w.ws_row * visu->w.ws_col, ' ');
 	visu->print_w = visu->w.ws_col / 2 - visu->map_w;
@@ -56,6 +54,7 @@ void	print_title(t_visu *visu)
 	ft_printf("{#c3282f}{bold}%-*s{#ffffff}{bold}", visu->map_w - 2, visu->p1);
 	ft_printf("VS{#3e92cc}{bold}%*s\n", visu->map_w - 2, visu->p2);
 	ft_printf("{reset}");
+	print_map(visu);
 }
 
 int		finish_game(t_visu *visu)
@@ -63,14 +62,14 @@ int		finish_game(t_visu *visu)
 	char *line_x;
 
 	line_x = NULL;
-	free(visu->line);
+	ft_printf("\033[%d;%dH{reset}", 16 + visu->map_h, visu->print_w);
 	ft_printf("{#232323:bg}");
 	if (visu->p1_score > visu->p2_score)
-		ft_printf("\n{green}{bold}%s won 🏆\n", visu->p1);
+		ft_printf("{green}{bold}%s won 🏆\n", visu->p1);
 	else if (visu->p1_score < visu->p2_score)
-		ft_printf("\n{green}{bold}%s won 🏆\n", visu->p2);
+		ft_printf("{green}{bold}%s won 🏆\n", visu->p2);
 	else
-		ft_printf("\n{white}{bold}equality\n");
+		ft_printf("{white}{bold}equality\n");
 	ft_printf("{reset}");
 	if (get_next_line(0, &line_x) != 1 || ft_strncmp(line_x, "== X fin:", 9))
 	{

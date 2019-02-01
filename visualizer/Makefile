@@ -6,8 +6,10 @@ LDFLAG = -L./$(LIBDIR) -lft
 RM = rm -f
 
 SRC = main.c \
-	  map.c \
-	  print.c
+	  print.c \
+	  utils.c \
+	  place.c \
+	  parsing.c
 
 OBJ = $(SRC:.c=.o)
 
