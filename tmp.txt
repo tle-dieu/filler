@@ -1,0 +1,6 @@
+[?25l[2K🚀 [38;2;12;231;58m[38;2;251;196;15m Compiling:[0m map.c[?25l[2K🚀 [38;2;12;231;58m[38;2;251;196;15m Compiling:[0m place.c[2K[38;2;251;196;15m🌘  All compiled[0m
+[38;2;12;231;58mtle-dieu.filler has been created[0m
+[?12l[?25hmake -C visu_printf/
+[?25l[2K🚀 [38;2;12;231;58m[38;2;251;196;15m Compiling:[0m main.c[?25l[2K🚀 [38;2;12;231;58m[38;2;251;196;15m Compiling:[0m map.c[2K[38;2;251;196;15m🌘  All compiled[0m
+[38;2;12;231;58mvisu_printf has been created[0m
+[?12l[?25h

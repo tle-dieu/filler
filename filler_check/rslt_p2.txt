@@ -1,0 +1,183 @@
+*************************************
+***** FILLER_CORRECTION RESULTS *****
+*************************************
+
+*** abanlin VS tle-dieu - map00 ***
+../tle-dieu.filler won - 52AGAINST109
+../tle-dieu.filler won - 59AGAINST100
+../tle-dieu.filler won - 56AGAINST113
+../tle-dieu.filler won - 55AGAINST116
+../tle-dieu.filler won - 61AGAINST112
+
+[mabanlin    0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** abanlin VS tle-dieu - map01 ***
+../tle-dieu.filler won - 109AGAINST242
+../tle-dieu.filler won - 107AGAINST255
+../tle-dieu.filler won - 75AGAINST271
+../tle-dieu.filler won - 3AGAINST356
+../tle-dieu.filler won - 9AGAINST363
+
+[mabanlin    0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** abanlin VS tle-dieu - map02 ***
+../tle-dieu.filler won - 737AGAINST1316
+../tle-dieu.filler won - 879AGAINST1025
+../tle-dieu.filler won - 913AGAINST1049
+../tle-dieu.filler won - 512AGAINST1481
+../tle-dieu.filler won - 873AGAINST1192
+
+[mabanlin    0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** carli VS tle-dieu - map00 ***
+players/carli.filler won - 97AGAINST56
+players/carli.filler won - 129AGAINST42
+players/carli.filler won - 127AGAINST42
+players/carli.filler won - 126AGAINST38
+players/carli.filler won - 112AGAINST62
+
+[1;32mcarli      5/5[m
+[mtle-dieu   0/5[m
+
+*** carli VS tle-dieu - map01 ***
+players/carli.filler won - 244AGAINST75
+players/carli.filler won - 189AGAINST150
+../tle-dieu.filler won - 0AGAINST321
+players/carli.filler won - 181AGAINST144
+players/carli.filler won - 192AGAINST148
+
+[1;33mcarli      4/5[m
+[mtle-dieu   1/5[m
+
+*** carli VS tle-dieu - map02 ***
+../tle-dieu.filler won - 39AGAINST1984
+../tle-dieu.filler won - 132AGAINST1912
+../tle-dieu.filler won - 221AGAINST1769
+../tle-dieu.filler won - 191AGAINST1804
+../tle-dieu.filler won - 152AGAINST1936
+
+[mcarli      0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** champely VS tle-dieu - map00 ***
+../tle-dieu.filler won - 0AGAINST161
+../tle-dieu.filler won - 0AGAINST178
+../tle-dieu.filler won - 0AGAINST153
+../tle-dieu.filler won - 0AGAINST181
+../tle-dieu.filler won - 0AGAINST160
+
+[mchampely   0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** champely VS tle-dieu - map01 ***
+../tle-dieu.filler won - 0AGAINST338
+../tle-dieu.filler won - 0AGAINST345
+../tle-dieu.filler won - 0AGAINST314
+../tle-dieu.filler won - 0AGAINST370
+../tle-dieu.filler won - 0AGAINST358
+
+[mchampely   0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** champely VS tle-dieu - map02 ***
+../tle-dieu.filler won - 0AGAINST2025
+../tle-dieu.filler won - 0AGAINST2042
+../tle-dieu.filler won - 0AGAINST2064
+../tle-dieu.filler won - 0AGAINST2060
+../tle-dieu.filler won - 0AGAINST2004
+
+[mchampely   0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** grati VS tle-dieu - map00 ***
+../tle-dieu.filler won - 57AGAINST115
+../tle-dieu.filler won - 71AGAINST104
+../tle-dieu.filler won - 54AGAINST121
+../tle-dieu.filler won - 51AGAINST128
+../tle-dieu.filler won - 63AGAINST104
+
+[mgrati      0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** grati VS tle-dieu - map01 ***
+../tle-dieu.filler won - 115AGAINST244
+../tle-dieu.filler won - 115AGAINST249
+../tle-dieu.filler won - 83AGAINST272
+../tle-dieu.filler won - 57AGAINST302
+../tle-dieu.filler won - 95AGAINST282
+
+[mgrati      0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** grati VS tle-dieu - map02 ***
+../tle-dieu.filler won - 274AGAINST1756
+../tle-dieu.filler won - 733AGAINST1342
+../tle-dieu.filler won - 175AGAINST1808
+../tle-dieu.filler won - 238AGAINST1676
+../tle-dieu.filler won - 828AGAINST1207
+
+[mgrati      0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** hcao VS tle-dieu - map00 ***
+../tle-dieu.filler won - 54AGAINST123
+../tle-dieu.filler won - 53AGAINST119
+../tle-dieu.filler won - 9AGAINST162
+../tle-dieu.filler won - 38AGAINST126
+../tle-dieu.filler won - 54AGAINST113
+
+[mhcao       0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** hcao VS tle-dieu - map01 ***
+../tle-dieu.filler won - 63AGAINST272
+../tle-dieu.filler won - 64AGAINST282
+../tle-dieu.filler won - 51AGAINST273
+../tle-dieu.filler won - 95AGAINST254
+../tle-dieu.filler won - 2AGAINST381
+
+[mhcao       0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** hcao VS tle-dieu - map02 ***
+../tle-dieu.filler won - 330AGAINST1694
+../tle-dieu.filler won - 754AGAINST1253
+../tle-dieu.filler won - 819AGAINST1217
+../tle-dieu.filler won - 908AGAINST1115
+../tle-dieu.filler won - 926AGAINST1047
+
+[mhcao       0/5[m
+[1;32mtle-dieu   5/5[m
+
+*** superjeannot VS tle-dieu - map00 ***
+../tle-dieu.filler won - 76AGAINST107
+players/superjeannot.filler won - 121AGAINST27
+players/superjeannot.filler won - 93AGAINST84
+../tle-dieu.filler won - 77AGAINST84
+players/superjeannot.filler won - 78AGAINST71
+
+[1;33msuperjeannot 3/5[m
+[mtle-dieu   2/5[m
+
+*** superjeannot VS tle-dieu - map01 ***
+players/superjeannot.filler won - 161AGAINST150
+../tle-dieu.filler won - 0AGAINST339
+../tle-dieu.filler won - 141AGAINST189
+../tle-dieu.filler won - 0AGAINST360
+players/superjeannot.filler won - 199AGAINST79
+
+[msuperjeannot 2/5[m
+[1;33mtle-dieu   3/5[m
+
+*** superjeannot VS tle-dieu - map02 ***
+../tle-dieu.filler won - 56AGAINST1959
+../tle-dieu.filler won - 157AGAINST1875
+players/superjeannot.filler won - 903AGAINST835
+../tle-dieu.filler won - 172AGAINST1928
+../tle-dieu.filler won - 157AGAINST1855
+
+[msuperjeannot 1/5[m
+[1;33mtle-dieu   4/5[m

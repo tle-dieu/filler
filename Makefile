@@ -3,8 +3,8 @@ CC = gcc
 FLAG = -Wall -Werror -Wextra
 LDFLAG = -L./$(LIBDIR) -lft
 
-VISU_PRINTF_FOLDER = visu_printf/
-VISU_PRINTF = $(VISU_PRINTF_FOLDER)visu_printf
+VISU_FOLDER = visualizer/
+VISU = $(VISU_FOLDER)visualizer
 
 RM = rm -f
 
@@ -51,13 +51,13 @@ $(LIBFT):
 
 clean:
 	@(cd $(LIBDIR) && $(MAKE) $@)
-	@(cd $(VISU_PRINTF_FOLDER) && $(MAKE) $@)
+	@(cd $(VISU_FOLDER) && $(MAKE) $@)
 	@$(RM) $(OBJ)
 	@printf "$(RED)The filler objects have been removed$(NC)\n"
 
 fclean:
 	@(cd $(LIBDIR) && $(MAKE) $@)
-	@(cd $(VISU_PRINTF_FOLDER) && $(MAKE) $@)
+	@(cd $(VISU_FOLDER) && $(MAKE) $@)
 	@$(RM) $(OBJ) $(NAME)
 	@printf "$(RED)The filler objects have been removed$(NC)\n"
 	@printf "$(RED)$(NAME) has been removed$(NC)\n"
@@ -70,22 +70,18 @@ test: $(NAME)
 	@-././resources/filler_vm -f resources/maps/$(map) -p1 resources/players/./$(p1).filler -p2 resources/players/./$(p2).filler | tee result/result.txt
 	@-mv filler.trace result
 
-visu:
-	(cd visualizer && gcc -I /usr/local/include visualizer.c -L /usr/local/lib -lmlx -framework OpenGL -framework AppKit -L ../libft/ -lft)
-	resources/./filler_vm -f resources/maps/map00 -p1 ./tle-dieu.filler -p2 resources/players/superjeannot.filler | visualizer/./a.out
-	
-visu_printf: $(NAME)
-	make -C $(VISU_PRINTF_FOLDER)
+visu: $(NAME)
+	make -C $(VISU_FOLDER)
 	@-mkdir -p result
 	@-rm -f result/result.txt
 	@-rm -f result/read.txt
 	@-mv tle-dieu.filler resources/players
-	@-././resources/filler_vm -f resources/maps/$(map) -p1 resources/players/./$(p1).filler -p2 resources/players/./$(p2).filler | tee result/result.txt | ./$(VISU_PRINTF)
+	@-././resources/filler_vm -f resources/maps/$(map) -p1 resources/players/./$(p1).filler -p2 resources/players/./$(p2).filler | tee result/result.txt | ./$(VISU)
 	@-mv filler.trace result
 
-$(VISU_PRINTF):
-	@(cd $(VISU_PRINTF_FOLDER) && $(MAKE))
+$(VISU):
+	@(cd $(VISU_FOLDER) && $(MAKE))
 
 re: fclean all
 
-.PHONY: clean fclean visu_printf
+.PHONY: clean fclean visu

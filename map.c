@@ -6,11 +6,12 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 14:51:09 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/31 14:50:02 by matleroy         ###   ########.fr       */
+/*   Updated: 2019/02/01 14:33:21 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
+
 int		get_map_info(t_map *map)
 {
 	char	*line;
