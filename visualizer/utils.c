@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:55:10 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 17:59:45 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 20:02:39 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	free_content(char ***content, int height_map)
 	int i;
 
 	i = 0;
-	if (content)
+	if (content && *content)
 	{
 		while (i < height_map)
 			free((*content)[i++]);

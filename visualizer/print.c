@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 14:44:46 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 18:24:57 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 20:04:25 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int		finish_game(t_visu *visu)
 		free(line_x);
 		return (1);
 	}
+	free(line_x);
 	return (0);
 }
 

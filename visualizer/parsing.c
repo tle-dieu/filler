@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:57:59 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 18:26:40 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:03:36 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ static int	get_map_info(t_visu *visu)
 {
 	char *tmp;
 
+	free_content(&visu->map, visu->map_h);
 	visu->map_w = 0;
 	visu->map_h = 0;
 	tmp = visu->line + 8;
@@ -63,9 +64,8 @@ int			get_map(t_visu *visu)
 
 	i = 0;
 	line = NULL;
-	visu->map = NULL;
 	if ((get_map_info(visu)) != 1 || get_next_line(0, &line) != 1
-			|| !(visu->map = (char **)malloc(sizeof(char *) * visu->map_h)))
+	|| !(visu->map = (char **)malloc(sizeof(char *) * visu->map_h)))
 	{
 		free(line);
 		return (1);
@@ -74,7 +74,7 @@ int			get_map(t_visu *visu)
 	while (i < visu->map_h && get_next_line(0, &line) == 1)
 	{
 		if ((int)ft_strlen(line) - 4 != visu->map_w
-				|| !(visu->map[i++] = ft_strdup(line + 4)))
+		|| !(visu->map[i++] = ft_strdup(line + 4)))
 		{
 			free(line);
 			free_content(&visu->map, i);
@@ -89,6 +89,7 @@ static int	get_piece_info(t_visu *visu)
 {
 	char *tmp;
 
+	free_content(&visu->piece, visu->piece_h);
 	visu->piece_h = 0;
 	visu->piece_w = 0;
 	tmp = visu->line + 6;

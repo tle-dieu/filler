@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/17 13:29:49 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/29 12:00:16 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:38:04 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ static int	get_conv(va_list args, t_print *buff, t_flag *flags, char **format)
 static int	check_color(t_print *buff, char **format)
 {
 	char	*s;
-	char	col[19];
+	char	col[22];
 	char	rgb[20];
 	int		i;
 
 	i = 0;
 	s = *format;
-	while (i < 17 && *s != '}' && *s)
+	while (i < 20 && *s != '}' && *s)
 		col[i++] = *s++;
 	if (!(*s == '}'))
 		return (0);
@@ -77,7 +77,7 @@ static int	check_color(t_print *buff, char **format)
 	if (s)
 	{
 		*format += i;
-		color_in_buff(buff, s);
+		color_in_buff(buff, get_bg(col, s));
 	}
 	return (s ? 1 : 0);
 }

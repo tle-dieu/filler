@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 14:36:59 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/28 22:48:33 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:48:53 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	get_player_info(t_map *map)
 	line = NULL;
 	map->order = 0;
 	if (get_next_line(0, &line) == 1 && (!ft_strncmp(line, "$$$ exec p2 : ", 14)
-				|| !ft_strncmp(line, "$$$ exec p1 : ", 14)))
+	|| !ft_strncmp(line, "$$$ exec p1 : ", 14)))
 	{
 		map->order = line[10] - 48;
 		map->my_sign = map->order == 1 ? 'O' : 'X';
@@ -67,7 +67,7 @@ static int	play(t_map *map, t_piece *piece, t_goal **goal, t_adv *adv)
 		if (!get_map(map))
 			return (1);
 		if ((map->loop++ == 1 || map->strat == 1)
-				&& ((map->strat = get_strat(map, goal, adv)) == -1))
+		&& ((map->strat = get_strat(map, goal, adv)) == -1))
 		{
 			free_content(&map->content, map->height);
 			free_content(&piece->content, piece->height);

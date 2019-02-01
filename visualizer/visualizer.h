@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:49:16 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 18:26:50 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:51:36 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct		s_visu
 	int				y;
 	char			actual_p;
 	int				print_w;
-	struct winsize	w;
 	int				score_len;
+	struct winsize	w;
 }					t_visu;
 
 int					get_score(t_visu *visu);

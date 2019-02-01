@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/18 16:37:36 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/17 16:58:06 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/01 19:43:35 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ static int		check_line(t_gnl *actual, int ret, char **line)
 		return (-1);
 	if (ft_strclen(actual->str, '\n') < ft_strlen(actual->str))
 	{
-		tmp = ft_strdup((ft_strchr(actual->str, '\n') + 1));
+		if (!(tmp = ft_strdup((ft_strchr(actual->str, '\n') + 1))))
+			return (-1);
 		free(actual->str);
 		actual->str = tmp;
 	}
