@@ -6,29 +6,12 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 17:13:12 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 20:02:48 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/02 13:38:13 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "visualizer.h"
 #include <unistd.h>
-
-char	*atoi_jr_v2(char *s, int *nb)
-{
-	int sign;
-
-	sign = 1;
-	*nb = 0;
-	if (*s == '-')
-	{
-		sign = -1;
-		s++;
-	}
-	while (*s >= '0' && *s <= '9')
-		*nb = *nb * 10 + *s++ - 48;
-	*nb = *nb * sign;
-	return (s);
-}
 
 int		info_place(t_visu *visu)
 {

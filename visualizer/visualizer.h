@@ -6,14 +6,39 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:49:16 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/01 19:51:36 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/02 15:37:21 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VISUALIZER_H
 # define VISUALIZER_H
 
+/*
+** ---------- STYLE ----------
+*/ 
+
 # define C_PLAY "◉"
+# define COLOR_BG "{#232323:bg}"
+# define COLOR_EMPTY "{#484848}"
+
+# define COLOR_P1 "{#d62828}"
+# define COLOR_P2 "{#fcbf49}"
+
+/*
+** # define COLOR_P1 "{#35a7ff}"
+** # define COLOR_P2 "{#6bf178}"
+*/
+
+/*
+** # define COLOR_P1 "{#c3282f}"
+** # define COLOR_P2 "{#3e92cc}"
+*/
+
+/*
+** # define COLOR_P1 "{#ff9f1c}"
+** # define COLOR_P2 "{#2ec4b6}"
+*/
+
 # include "libft.h"
 # include <sys/ioctl.h>
 
@@ -51,5 +76,6 @@ int					finish_game(t_visu *visu);
 void				print_score(t_visu *visu);
 void				print_background(t_visu *visu);
 void				print_init(t_visu *visu);
+char				*atoi_jr_v2(char *s, int *nb);
 
 #endif
