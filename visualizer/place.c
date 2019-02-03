@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 17:13:12 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/02 13:38:13 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/03 13:36:33 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		possible_to_place(t_visu *visu, int y, int x)
 
 	j = 0;
 	connect = 0;
-	usleep(10000);
+	usleep(SLEEP);
 	while (j < visu->piece_h)
 	{
 		i = 0;

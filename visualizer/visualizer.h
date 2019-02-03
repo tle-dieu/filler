@@ -6,12 +6,14 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 16:49:16 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/02 18:52:13 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/03 13:37:16 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VISUALIZER_H
 # define VISUALIZER_H
+
+# define SLEEP 10000
 
 /*
 ** ---------- STYLE ----------
