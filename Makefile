@@ -55,14 +55,20 @@ $(LIBFT):
 	@sleep 0.01
 
 clean:
-	@(cd $(LIBDIR) && $(MAKE) $@)
+ifneq (,$(filter $(visu),y yes))
 	@(cd $(VISUALIZER_FOLDER) && $(MAKE) $@)
+else
+	@(cd $(LIBDIR) && $(MAKE) $@)
+endif
 	@$(RM) $(OBJ)
 	@printf "$(RED)The filler objects have been removed$(NC)\n"
 
 fclean:
-	@(cd $(LIBDIR) && $(MAKE) $@)
+ifneq (,$(filter $(visu),y yes))
 	@(cd $(VISUALIZER_FOLDER) && $(MAKE) $@)
+else
+	@(cd $(LIBDIR) && $(MAKE) $@)
+endif
 	@$(RM) $(OBJ) $(NAME)
 	@printf "$(RED)The filler objects have been removed$(NC)\n"
 	@printf "$(RED)$(NAME) has been removed$(NC)\n"
@@ -79,9 +85,6 @@ else
 endif
 	@mv filler.trace $(RESULT_FOLDER)
 
-$(VISUALIZER):
-	@(cd $(VISUALIZER_FOLDER) && $(MAKE))
-
 re: fclean all
 
-.PHONY: clean fclean visu
+.PHONY: clean fclean run

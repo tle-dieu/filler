@@ -43,11 +43,13 @@ $(LIBFT):
 
 clean:
 	@$(RM) $(OBJ)
+	@(cd $(LIBDIR) && $(MAKE) $@)
 	@printf "$(RED)The visualizer objects have been removed$(NC)\n"
 
 fclean:
 	@$(RM) $(OBJ) $(NAME)
-	@printf "$(RED)The filler objects have been removed$(NC)\n"
+	@(cd $(LIBDIR) && $(MAKE) $@)
+	@printf "$(RED)The visualizer objects have been removed$(NC)\n"
 	@printf "$(RED)$(NAME) has been removed$(NC)\n"
 
 re: fclean all
