@@ -11,7 +11,7 @@ MAPS_FOLDER = $(RESOURCES_FOLDER)maps/
 PLAYERS_FOLDER = $(RESOURCES_FOLDER)players/
 RESULT_FOLDER = result/
 
-RM = rm -f
+RM = rm -rf
 
 SRC = main.c \
 	  piece.c \
@@ -84,6 +84,9 @@ else
 	@./$(RESOURCES_FOLDER)filler_vm -f $(MAP_EX) -p1 ./$(P1_EX) -p2 ./$(P2_EX) | tee $(RESULT_FOLDER)result.txt
 endif
 	@mv filler.trace $(RESULT_FOLDER)
+
+clean_result:
+	@$(RM) $(RESULT_FOLDER)
 
 re: fclean all
 
