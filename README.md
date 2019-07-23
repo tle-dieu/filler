@@ -5,7 +5,6 @@ Two players are fighting on a map.
 
 * On each turn, the current player receives a piece and put it on the map.
 * To put a piece, the player has to write their coordinates in the "Y X \ n" format on the standard input.
-* The game stops as soon as it is added to the map.
 * The game stops when both players can no longer put pieces
 * The winner is the one who controls the most space on the map.
 
