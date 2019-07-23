@@ -6,22 +6,25 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/16 21:48:56 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/29 11:57:39 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/06/23 15:51:06 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
-# define BS_PRINTF 8192
 
 # include <stdarg.h>
 # include <inttypes.h>
 # include <wchar.h>
 
+# define BS_PRINTF 8192
+
 typedef struct		s_print
 {
-	char			str[BS_PRINTF + 1];
+	char			sbuff[BS_PRINTF + 1];
+	char			*str;
 	int				i;
+	int				print;
 	int				fd;
 	int				error;
 	int				total;
@@ -49,18 +52,26 @@ typedef struct		s_flag
 ** ------------------GENERAL-------------------
 */
 
-int					ft_printf(char const *format, ...);
-int					ft_dprintf(int fd, char const *format, ...);
-intmax_t			get_signed(va_list args, t_flag *flags);
-uintmax_t			get_unsigned(va_list args, t_flag *flags);
+intmax_t			get_signed(va_list arg, t_flag *flags);
+uintmax_t			get_unsigned(va_list arg, t_flag *flags);
 int					base_len(uintmax_t nb, int base);
 char				*atoi_jr(char *format, int *nb);
 
 /*
+** -------------------FORMAT------------------
+*/
+int					more_conv(va_list arg, t_print *buff, t_flag *flags,
+		char **format);
+int					get_conv(va_list arg, t_print *buff, t_flag *flags,
+		char **format);
+int					check_color(t_print *buff, char **format);
+void				apply_format(va_list arg, t_print *buff,
+		char const *format);
+/*
 ** --------------------FLAG--------------------
 */
 
-int					get_flags(va_list args, t_flag *flags, char **format);
+int					get_flags(va_list arg, t_flag *flags, char **format);
 int					init_flags(t_flag *flags);
 
 /*
@@ -73,7 +84,7 @@ void				p_conv(t_print *buff, t_flag *flags, uintmax_t nb);
 void				di_conv(t_print *buff, t_flag *flags, intmax_t nb);
 void				oux_conv(t_print *buff, t_flag *flags,
 		uintmax_t nb, char *base);
-void				f_conv(va_list args, t_print *buff,
+void				f_conv(va_list arg, t_print *buff,
 		t_flag *flags, char conv);
 void				lc_conv(t_print *buff, t_flag *flags,
 		char **format, wint_t c);

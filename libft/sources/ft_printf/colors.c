@@ -6,11 +6,12 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/10 00:24:00 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/29 15:51:31 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/05/18 01:04:54 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "ft_printf.h"
 
 static char	*more_style(char *color)
 {
@@ -53,7 +54,7 @@ char		*get_style(char *color)
 		return (ft_strdup("\x1b[36m"));
 	if (!ft_strcmp("{white}", color) || !ft_strcmp("{white:bg}", color))
 		return (ft_strdup("\x1b[37m"));
-	if (!ft_strcmp("{reset}", color))
+	if (!ft_strcmp("{reset}", color) || !ft_strcmp("{R}", color))
 		return (ft_strdup("\x1b[0m"));
 	if (!ft_strcmp("{bold}", color))
 		return (ft_strdup("\x1b[1m"));
@@ -132,7 +133,7 @@ char		*dec_color(char *color, char *rgb)
 	if (*(color = atoi_jr(color + 1, &g) + 1) != ',')
 		return (NULL);
 	if ((*(color = atoi_jr(color + 1, &b) + 1) != ')')
-	|| (*(color + 1) != '}' && ft_strcmp(color + 1, ":bg}")))
+		|| (*(color + 1) != '}' && ft_strcmp(color + 1, ":bg}")))
 		return (NULL);
 	if (r > 255 || b > 255 || g > 255)
 		return (NULL);

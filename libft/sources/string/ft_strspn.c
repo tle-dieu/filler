@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memchr.c                                        :+:      :+:    :+:   */
+/*   ft_strspn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tle-dieu <tle-dieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 18:12:09 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/04/15 02:23:00 by tle-dieu         ###   ########.fr       */
+/*   Created: 2019/04/20 20:26:52 by tle-dieu          #+#    #+#             */
+/*   Updated: 2019/04/25 19:02:24 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
-#include <stdlib.h>
 
-void	*ft_memchr(const void *s, int c, size_t n)
+size_t	ft_strspn(const char *s, const char *accept)
 {
-	unsigned char const *search;
-	unsigned char		comp;
+	const char	*tmp;
+	size_t		i;
 
-	search = (unsigned char const *)s;
-	comp = (unsigned char)c;
-	while (n--)
+	i = 0;
+	while (s[i])
 	{
-		if (*search == comp)
-			return ((void *)search);
-		search++;
+		tmp = accept;
+		while (*tmp != s[i])
+			if (!*tmp++)
+				return (i);
+		i++;
 	}
-	return (NULL);
+	return (i);
 }

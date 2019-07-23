@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_integer_table.c                            :+:      :+:    :+:   */
+/*   ft_strlwr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tle-dieu <tle-dieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/02 18:41:51 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/15 17:31:56 by tle-dieu         ###   ########.fr       */
+/*   Created: 2019/04/20 20:27:16 by tle-dieu          #+#    #+#             */
+/*   Updated: 2019/04/20 20:27:19 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_sort_integer_table(int *tab, int size)
+char	*ft_strlwr(char *str)
 {
-	int		i;
-	int		temp;
+	char *s;
 
-	i = 0;
-	while (i < size)
+	s = str;
+	while (*s)
 	{
-		if (tab[i] <= tab[i + 1])
-			i++;
-		else
-		{
-			temp = tab[i + 1];
-			tab[i + 1] = tab[i];
-			tab[i] = temp;
-			i = 0;
-		}
+		*s = (*s >= 'A' && *s <= 'Z') ? *s + 32 : *s;
+		s++;
 	}
+	return (str);
 }

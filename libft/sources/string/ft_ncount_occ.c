@@ -1,31 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_integer_table.c                            :+:      :+:    :+:   */
+/*   ft_count_occ.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tle-dieu <tle-dieu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/09/02 18:41:51 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/15 17:31:56 by tle-dieu         ###   ########.fr       */
+/*   Created: 2019/03/22 22:42:07 by tle-dieu          #+#    #+#             */
+/*   Updated: 2019/04/12 19:29:46 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_sort_integer_table(int *tab, int size)
+int		ft_ncount_occ(char const *s, char c, int n)
 {
-	int		i;
-	int		temp;
+	int occ;
+	int i;
 
+	occ = 0;
 	i = 0;
-	while (i < size)
+	while (*s && i++ < n)
 	{
-		if (tab[i] <= tab[i + 1])
-			i++;
-		else
-		{
-			temp = tab[i + 1];
-			tab[i + 1] = tab[i];
-			tab[i] = temp;
-			i = 0;
-		}
+		if (*s == c)
+			occ++;
+		s++;
 	}
+	return (occ);
 }
