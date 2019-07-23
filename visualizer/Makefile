@@ -1,6 +1,6 @@
 NAME = visualizer
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Werror -Wextra -O3
 LDFLAG = -L./$(LIBDIR) -lft
 
 RM = rm -f

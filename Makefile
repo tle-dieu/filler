@@ -1,6 +1,6 @@
 NAME = tle-dieu.filler
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -O3
 LDFLAG = -L./$(LIBDIR) -lft
 
 VISUALIZER_FOLDER = visualizer/

@@ -6,7 +6,7 @@
 #    By: tle-dieu <tle-dieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/18 01:10:03 by tle-dieu          #+#    #+#              #
-#    Updated: 2019/07/23 11:31:20 by tle-dieu         ###   ########.fr        #
+#    Updated: 2019/07/23 12:47:08 by tle-dieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME_DYNAMIC = libft.so
 MAKEFLAGS += --no-print-directory
 
 CC ?= gcc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -O3
 DCFLAGS ?= -fPIC
 DEPFLAGS = -MMD -MF $(<:$(SOURCES_DIR)%.c=$(ACTUAL_DEPS_DIR)%.d)
 

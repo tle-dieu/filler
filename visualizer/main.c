@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/29 14:58:33 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/02/02 15:38:47 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/07/23 12:42:42 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@ static int	get_player_name(t_visu *visu)
 	i = 0;
 	while (++i < 6 && get_next_line(0, &line) == 1)
 		free(line);
+	if (i != 6)
+		return (0);
+	ft_printf("OK\n");
 	while (++i < 11 && get_next_line(0, &line) == 1)
 	{
 		if (i == 7 || i == 9)

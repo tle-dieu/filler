@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 16:57:59 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/07/23 11:37:10 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/03 13:35:51 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ static int	get_map_info(t_visu *visu)
 	free_content(&visu->map, visu->map_h);
 	visu->map_w = 0;
 	visu->map_h = 0;
-	if (!visu->line || ft_strlen(visu->line) >= 8)
-		return (0);
 	tmp = visu->line + 8;
 	while (*tmp >= '0' && *tmp <= '9')
 		visu->map_h = visu->map_h * 10 + *tmp++ - 48;
@@ -66,8 +64,6 @@ int			get_map(t_visu *visu)
 
 	i = 0;
 	line = NULL;
-	if (!visu->line)
-		return (0);
 	if ((get_map_info(visu)) != 1 || get_next_line(0, &line) != 1
 	|| !(visu->map = (char **)malloc(sizeof(char *) * visu->map_h)))
 	{
@@ -96,8 +92,6 @@ static int	get_piece_info(t_visu *visu)
 	free_content(&visu->piece, visu->piece_h);
 	visu->piece_h = 0;
 	visu->piece_w = 0;
-	if (!visu->line || ft_strlen(visu->line) >= 6)
-		return (0);
 	tmp = visu->line + 6;
 	while (*tmp >= '0' && *tmp <= '9')
 		visu->piece_h = visu->piece_h * 10 + *tmp++ - 48;

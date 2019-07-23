@@ -6,7 +6,7 @@
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 17:13:12 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/07/23 10:58:07 by tle-dieu         ###   ########.fr       */
+/*   Updated: 2019/02/03 13:36:33 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ int		info_place(t_visu *visu)
 	char	*line;
 	char	*tmp;
 	int		error;
+	int		sign;
 
 	line = visu->line;
 	error = 1;
 	visu->y = 0;
 	visu->x = 0;
+	sign = 1;
 	visu->actual_p = line[6];
 	tmp = line + 11;
 	tmp = atoi_jr_v2(tmp, &visu->y);
