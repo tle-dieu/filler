@@ -6,7 +6,7 @@
 #    By: tle-dieu <tle-dieu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/18 01:10:03 by tle-dieu          #+#    #+#              #
-#    Updated: 2019/07/22 20:39:33 by tle-dieu         ###   ########.fr        #
+#    Updated: 2019/07/23 11:31:20 by tle-dieu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -140,8 +140,7 @@ SOURCES_FILES =	$(FT_PRINTF)buff.c \
 				$(UTILS)ft_putnbr_fd.c \
 				$(UTILS)ft_putstr.c \
 				$(UTILS)ft_putstr_fd.c \
-				$(UTILS)get_next_line.c \
-				$(UTILS)gnl_newline.c
+				$(UTILS)get_next_line.c
 
 
 # ------------------- Objects ------------------ #
@@ -192,6 +191,7 @@ SLEEP = sleep 0.01
 
 ifneq (,$(filter $(fsanitize),y yes))
 	CFLAGS += -g3
+	CC = clang
 ifeq ($(shell uname -s),Linux)
 	CFLAGS += -fsanitize=address,undefined,integer,bounds,builtin
 else

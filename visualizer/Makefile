@@ -1,6 +1,6 @@
 NAME = visualizer
 CC = gcc
-FLAG = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g3
 LDFLAG = -L./$(LIBDIR) -lft
 
 RM = rm -f
@@ -23,12 +23,28 @@ RED := \033[38;2;255;60;51m
 RMLINE = \033[2K
 NC := \033[0m
 
+ifneq (,$(filter $(fsanitize),y yes))
+	CFLAGS += -g3
+	CC = clang
+ifeq ($(shell uname -s),Linux)
+	CFLAGS += -fsanitize=address,undefined,integer,bounds,builtin
+else
+	CFLAGS += -fsanitize=address,undefined,integer,bounds
+endif
+endif
+
+ifneq (,$(filter $(silent), y yes))
+	HIDE :=
+	SLEEP :=
+	REDIRECT := > /dev/null 2>&1
+endif
+
 INCLUDE = visualizer.h
 all: $(NAME)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@printf "$(RMLINE)$(YELLOW)🌘  All compiled$(NC)\n"
-	@$(CC) -o $@ $(LDFLAG) $^
+	@$(CC) $(CFLAGS) -o $@ $(LDFLAG) $^
 	@printf "$(GREEN)$(NAME) has been created$(NC)\n"
 	@tput cnorm
 
@@ -37,7 +53,7 @@ $(LIBFT):
 
 %.o: %.c $(INCLUDE)
 	@tput civis
-	@$(CC) $(FLAG) -I $(INCLUDE_FOLDER) -o $@ -c $<
+	@$(CC) $(CFLAGS) -I $(INCLUDE_FOLDER) -o $@ -c $<
 	@printf "$(RMLINE)\r🚀 $(GREEN)$(YELLOW) Compiling:$(NC) $(notdir $<)\r"
 	@sleep 0.01
 

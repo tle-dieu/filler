@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 17:27:49 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/01/17 15:14:11 by tle-dieu         ###   ########.fr       */
+/*   Created: 2018/11/07 13:03:36 by tle-dieu          #+#    #+#             */
+/*   Updated: 2018/11/08 18:46:59 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "libft.h"
+#include <unistd.h>
 
-# define GET_NEXT_LINE_H
-# define BS_GNL 100
-
-int					get_next_line(const int fd, char **line);
-
-typedef struct		s_gnl
+void	ft_putstr_fd(const char *s, int fd)
 {
-	char			*str;
-	int				fd;
-	struct s_gnl	*next;
-}					t_gnl;
-
-#endif
+	if (s)
+		write(fd, s, ft_strlen(s));
+}

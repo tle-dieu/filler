@@ -3,39 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tle-dieu <tle-dieu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tle-dieu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/16 18:00:31 by tle-dieu          #+#    #+#             */
-/*   Updated: 2019/06/05 16:42:27 by tle-dieu         ###   ########.fr       */
+/*   Created: 2018/11/18 16:37:36 by tle-dieu          #+#    #+#             */
+/*   Updated: 2019/07/23 11:10:17 by tle-dieu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
 #include "libft.h"
+#include "get_next_line.h"
 #include <stdlib.h>
 #include <unistd.h>
-
-static int		free_fd(t_gnl **begin, t_gnl *del, char *tmp)
-{
-	t_gnl *prev;
-	t_gnl *actual;
-
-	free(tmp);
-	prev = NULL;
-	actual = *begin;
-	while (actual != del)
-	{
-		prev = actual;
-		actual = actual->next;
-	}
-	free(del->str);
-	if (!prev)
-		*begin = del->next;
-	else
-		prev->next = del->next;
-	free(del);
-	return (-1);
-}
 
 static t_gnl	*choose_fd(t_gnl **begin_list, int fd)
 {
@@ -51,70 +29,57 @@ static t_gnl	*choose_fd(t_gnl **begin_list, int fd)
 	}
 	if (!(new = (t_gnl*)malloc(sizeof(t_gnl))))
 		return (NULL);
-	if (!(new->str = ft_strnew(0)))
+	if (!(new->str = ft_strnew(1)))
 	{
 		free(new);
 		return (NULL);
 	}
 	new->fd = fd;
-	new->len = 0;
 	new->next = *begin_list;
 	*begin_list = new;
 	return (new);
 }
 
-static int		check_line(t_gnl *actual, int ret, char **line, char *next)
+static int		check_line(t_gnl *actual, int ret, char **line)
 {
-	char	*tmp;
-	size_t	len;
+	char *tmp;
 
-	len = (next ? (size_t)(next - actual->str) : actual->len);
-	if (ret == 0 && !actual->len)
+	if (ret == 0 && !ft_strlen(actual->str))
 		return (0);
-	if (ret < 0 || !(*line = (char *)malloc(sizeof(char) * (len + 1)))
-		|| !(ft_memcpy(*line, actual->str, len)))
+	if (!(*line = ft_strcdup(actual->str, '\n')))
 		return (-1);
-	(*line)[len] = '\0';
-	if (next)
+	if (ft_strclen(actual->str, '\n') < ft_strlen(actual->str))
 	{
-		if (!(tmp = ft_memdup(next + 1, actual->len - len - 1)))
-		{
-			free(*line);
-			*line = NULL;
+		if (!(tmp = ft_strdup((ft_strchr(actual->str, '\n') + 1))))
 			return (-1);
-		}
 		free(actual->str);
 		actual->str = tmp;
 	}
-	actual->len -= len + (unsigned)(next != NULL);
-	return (len + 1);
+	else
+		ft_strclr(actual->str);
+	return (1);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	int				r;
-	char			buff[BS_GNL];
+	int				ret;
+	char			buf[BS_GNL + 1];
 	static t_gnl	*list;
 	t_gnl			*actual;
 	char			*tmp;
 
-	if (!(r = 0) && (fd < 0 || !line || read(fd, buff, 0) < 0 || BS_GNL <= 0))
+	if (fd < 0 || !line || read(fd, buf, 0) < 0 || BS_GNL <= 0)
 		return (-1);
 	if (!(actual = choose_fd(&list, fd)))
 		return (-1);
-	while (!(tmp = ft_memchr(actual->str, '\n', actual->len)))
+	ret = 0;
+	while (!ft_strchr(actual->str, '\n') && (ret = read(fd, buf, BS_GNL)) > 0)
 	{
-		if ((r = read(fd, buff, BS_GNL)) <= 0)
-			break ;
+		buf[ret] = '\0';
 		tmp = actual->str;
-		if (!(actual->str = ft_memjoin(actual->str, buff, actual->len, r)))
-			return (free_fd(&list, actual, tmp));
-		actual->len += r;
+		if (!(actual->str = ft_strjoin(actual->str, buf)))
+			return (-1);
 		free(tmp);
-		if (actual->len > MAX_SIZE_STATIC)
-			return (!free_fd(&list, actual, NULL));
 	}
-	if ((r = check_line(actual, r, line, tmp)) <= 0)
-		free_fd(&list, actual, NULL);
-	return (r);
+	return (check_line(actual, ret, line));
 }

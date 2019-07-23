@@ -1,6 +1,6 @@
 NAME = tle-dieu.filler
 CC = gcc
-FLAG = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 LDFLAG = -L./$(LIBDIR) -lft
 
 VISUALIZER_FOLDER = visualizer/
@@ -37,7 +37,23 @@ P1_EX := $(addprefix $(PLAYERS_FOLDER),$(addsuffix .filler,$(p1)))
 P2_EX := $(addprefix $(PLAYERS_FOLDER),$(addsuffix .filler,$(p2)))
 MAP_EX := $(addprefix $(MAPS_FOLDER),$(map))
 
-all: $(NAME)
+ifneq (,$(filter $(fsanitize),y yes))
+	CFLAGS += -g3
+	CC = clang
+ifeq ($(shell uname -s),Linux)
+	CFLAGS += -fsanitize=address,undefined,integer,bounds,builtin
+else
+	CFLAGS += -fsanitize=address,undefined,integer,bounds
+endif
+endif
+
+ifneq (,$(filter $(silent), y yes))
+	HIDE :=
+	SLEEP :=
+	REDIRECT := > /dev/null 2>&1
+endif
+
+all: $(NAME) $(VISUALIZER)
 
 $(NAME): $(OBJ) $(LIBFT)
 	@printf "$(RMLINE)$(YELLOW)🌘  All compiled$(NC)\n"
@@ -48,27 +64,24 @@ $(NAME): $(OBJ) $(LIBFT)
 $(LIBFT):
 	@(cd $(LIBDIR) && $(MAKE))
 
+$(VISUALIZER):
+	@(cd $(VISUALIZER_FOLDER) && $(MAKE))
+
 %.o: %.c $(INCLUDE)
 	@tput civis
-	@$(CC) $(FLAG) -I $(INCLUDE_FOLDER) -o $@ -c $<
+	@$(CC) $(CFLAGS) -I $(INCLUDE_FOLDER) -o $@ -c $<
 	@printf "$(RMLINE)\r🚀 $(GREEN)$(YELLOW) Compiling:$(NC) $(notdir $<)\r"
 	@sleep 0.01
 
 clean:
-ifneq (,$(filter $(visu),y yes))
 	@(cd $(VISUALIZER_FOLDER) && $(MAKE) $@)
-else
 	@(cd $(LIBDIR) && $(MAKE) $@)
-endif
 	@$(RM) $(OBJ)
 	@printf "$(RED)The filler objects have been removed$(NC)\n"
 
 fclean:
-ifneq (,$(filter $(visu),y yes))
 	@(cd $(VISUALIZER_FOLDER) && $(MAKE) $@)
-else
 	@(cd $(LIBDIR) && $(MAKE) $@)
-endif
 	@$(RM) $(OBJ) $(NAME)
 	@printf "$(RED)The filler objects have been removed$(NC)\n"
 	@printf "$(RED)$(NAME) has been removed$(NC)\n"
