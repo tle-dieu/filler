@@ -85,6 +85,5 @@ Piece 2 1:
 This code complies with the 42 school [norm](https://github.com/Binary-Hackers/42_Subjects/blob/master/04_Norme/norme_2_0_1.pdf)
 
 &nbsp;
-&nbsp;
 
-<h6 align="right">Done on  02/19</h6>
+###### Done on 02/19 ######
