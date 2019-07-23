@@ -79,8 +79,12 @@ Piece 2 1:
 `$> ./resources/filler_vm -f resources/maps/map01 -p1 ./resources/players/tle-dieu.filler -p2 ./resources/players/grati.filler | ./visualizer/visualizer`
 
 <img src="filler.gif" width="500" alt="gif filler"/>
-![gif filler](./filler.gif =500x)
 
 ## Notes ##
 
 This code complies with the 42 school [norm](https://github.com/Binary-Hackers/42_Subjects/blob/master/04_Norme/norme_2_0_1.pdf)
+
+&nbsp;
+&nbsp;
+
+<h6 align="right">Done on  02/19</h6>
