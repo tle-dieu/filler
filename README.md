@@ -19,7 +19,7 @@ Run `make` command and an executable called `fillit` should be created.
 
 ## Usage ##
 
-```shell
+```. 
 ./resources/filler_vm -f path [-i | -p1 path | -p2 path] [-s | -q | -t time]
     -f  --file           use a map file (required)
     -i  --interactive    interactive mode(default)
