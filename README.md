@@ -3,10 +3,11 @@
 Filler is the second project of the algorithmic branch at 42.
 Two players are fighting on a map.
 
-* On each turn, the current player receive a piece and have to put on the map.
-* To put a piece, the player have to write its coordinates in the "Y X\n" format on the standard input.
-* The game stops as soon as nothing has been added to the board.
-* The winner is the one who controls the most space on the board
+* On each turn, the current player receives a piece and put it on the map.
+* To put a piece, the player has to write their coordinates in the "Y X \ n" format on the standard input.
+* The game stops as soon as it is added to the map.
+* The game stops when both players can no longer put pieces
+* The winner is the one who controls the most space on the map.
 
 ## Subjects ##
 
