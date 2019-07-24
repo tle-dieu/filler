@@ -15,7 +15,7 @@ Two players are fighting on a map.
 
 ## Compiling ##
 
-Run `make` command and an executable called `fillit` should be created.
+Run `make` command and an executable called `filler` should be created.
 
 ## Usage ##
 
