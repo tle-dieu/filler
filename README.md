@@ -10,8 +10,8 @@ Two players are fighting on a map.
 
 ## Subjects ##
 
-* [English](subjects/fillit.en.pdf)
-* [French](subjects/fillit.fr.pdf)
+* [English](/subjects/filler.en.pdf)
+* [French](/subjects/filler.fr.pdf)
 
 ## Compiling ##
 
@@ -82,7 +82,7 @@ Piece 2 1:
 
 ## Notes ##
 
-This code complies with the 42 school [norm](https://github.com/Binary-Hackers/42_Subjects/blob/master/04_Norme/norme_2_0_1.pdf)
+This code complies with the 42 school [norm](/subjects/norme_2_0_1.pdf)
 
 &nbsp;
 
